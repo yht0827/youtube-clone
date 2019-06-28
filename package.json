@@ -1,7 +1,7 @@
 {
   "name": "youtube",
   "version": "1.0.0",
-  "description": "Cloning Youtube with Vanilla and NodeJS",
+  "description": "Cloning YouTube with Vanilla and NodeJS",
   "author": "HT",
   "dependencies": {
     "@babel/core": "^7.4.5",
@@ -11,6 +11,7 @@
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "helmet": "^3.18.0",
+    "mongoose": "^5.6.1",
     "morgan": "^1.9.1",
     "pug": "^2.0.3"
   },
