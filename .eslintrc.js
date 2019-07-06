@@ -17,6 +17,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "no-console": "off"
+    "no-console": "off",
+    "import/newline-after-import": "off",
+    "no-else-return": "off"
   },
 };

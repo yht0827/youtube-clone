@@ -10,7 +10,7 @@ const SEARCH = "/search";
 const USERS = "/users";
 const EDIT_PROFILE = "/edit-profile";
 const USER_DETAIL = "/:id";
-const CHANGE_PASSWORD ="/change-password";
+const CHANGE_PASSWORD = "/change-password";
 
 // Videos
 
@@ -45,19 +45,19 @@ const routes = {
       return VIDEO_DETAIL;
     }
   },
-  editVideo: (id) =>{
-    if(id){
+  editVideo: (id) => {
+    if (id) {
       return `/videos/${id}/edit`;
-    }else{
+    } else {
       return EDIT_VIDEO;
     }
   },
-  deleteVideo: (id) =>{
-  
-    if(id){
+  deleteVideo: (id) => {
+
+    if (id) {
       return `/videos/${id}/delete`;
-    }else{
-    return DELETE_VIDEO;
+    } else {
+      return DELETE_VIDEO;
     }
   }
 };
