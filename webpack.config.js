@@ -6,10 +6,18 @@ const MODE = process.env.WEBPACK_ENV;
 const ENTRY_FILE = path.resolve(__dirname, "assets", "js", "main.js"); // assets/js/main.js파일을 의미
 const OUTPUT_DIR = path.join(__dirname, "static"); 
 const config = {
-  entry: ENTRY_FILE, // entry : 파일들이 어디에서 왔는지
-  mode: MODE,
+  entry: ["@babel/polyfill",ENTRY_FILE], // entry : 파일들이 어디에서 왔는지
+  mode: MODE, // develop인지 production 인지 설정
   module:{
     rules:[
+      {
+        test: /\.(js)$/,
+        use: [
+          {
+            loader: "babel-loader"
+          }
+        ]
+      },
       {
           test: /\.(scss)$/, // test 규칙에 맞는 파일이면 use아래의 플러그인을 사용하는 한다.
           use: ExtractCSS.extract([// 순서는 맨 밑에서 부터
@@ -19,8 +27,8 @@ const config = {
           {
             loader:"postcss-loader", // css를 받아서 우리가 주는 plugin을 받아서 css로 변환(css호환성 관련 해결[익스플로어 연결같은 문제들])
             options:{
-                plugin(){
-                    return [autoprefixer({browsers: "cover 99.5%" })];
+                plugins(){
+                    return [autoprefixer()];
                 }
             }
           },
@@ -33,9 +41,9 @@ const config = {
   },
   output: { // output: 파일들을 어디에다 넣을 지
     path: OUTPUT_DIR,
-    filename: "[name].[format]"
+    filename: "[name].js"
   },
-  plugins:[new ExtractCSS("styles.css")]
+  plugins:[new ExtractCSS("styles.css")] // 실제 만들어질 css파일명 
 };
 
 module.exports = config;
