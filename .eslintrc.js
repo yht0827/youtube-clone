@@ -18,7 +18,6 @@ module.exports = {
   },
   rules: {
     "no-console": "off",
-    "import/newline-after-import": "off",
-    "no-else-return": "off"
+    "import/newline-after-import": "off"
   },
 };

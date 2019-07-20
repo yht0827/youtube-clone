@@ -9,8 +9,10 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "autoprefixer": "^9.6.1",
+    "axios": "^0.19.0",
     "babel-loader": "^8.0.6",
     "body-parser": "^1.19.0",
+    "connect-mongo": "^3.0.0",
     "cookie-parser": "^1.4.4",
     "core-js": "^3.1.4",
     "cross-env": "^5.2.0",
@@ -18,12 +20,19 @@
     "dotenv": "^8.0.0",
     "eslint-config-prettier": "^6.0.0",
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "helmet": "^3.18.0",
     "mongoose": "^5.6.1",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
+    "ngrok": "^3.2.2",
     "node-sass": "^4.12.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^3.0.0",
+    "passport-github": "^1.1.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "pug": "^2.0.3",
     "sass-loader": "^7.1.0",
@@ -31,17 +40,17 @@
     "webpack-cli": "^3.3.5"
   },
   "scripts": {
-    "dev:server": "nodemon --exec babel-node init.js --delay 2",
+    "dev:server": "nodemon --exec babel-node init.js --delay 2 --ignore '.scss' --ignore 'static' ",
     "dev:assets": "cross-env WEBPACK_ENV=development webpack -w",
-    "build:assets": "WEBPACK_ENV=production webpack"
+    "build:assets": "WEBPACK_ENV=production webpack",
+    "tunnel": "ngrok http 4000"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.0",
     "nodemon": "^1.19.1"
-  }
-  ,
+  },
   "browserslist": [
     "cover 99.5%"
   ]

@@ -1,9 +1,26 @@
 .social-login
     button.social-login--github
-        span
-            i.fab.fa-github
-        | Continue with Github
+        a(href=routes.gitHub)
+            span
+                i.fab.fa-github
+            | Continue with Github &nbsp; &nbsp; &nbsp;&nbsp;
+    button.social-login--google
+        a(href="#")
+            span
+                i.fab.fa-google-plus-g
+            | Continue with Google &nbsp; &nbsp;
+    button.social-login--kakaotalk
+        a(href="#")
+            span
+                i.xi-x.xi-kakaotalk
+            | Continue with KakaoTalk
+    button.social-login--naver
+        a(href="#")
+            span
+                i.xi-x.xi-naver-square
+            | Continue with Naver &nbsp; &nbsp; &nbsp;&nbsp;
     button.social-login--facebook
-        span
-            i.fab.fa-facebook
-        | Continue with Facebook    
+        a(href=routes.facebook)
+            span
+                i.fab.fa-facebook-square
+            | Continue with Facebook
