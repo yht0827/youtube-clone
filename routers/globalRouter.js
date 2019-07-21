@@ -12,7 +12,13 @@ import {
     postGithubLogIn,
     getMe,
     facebookLogin,
-    postFacebookLogin
+    postFacebookLogin,
+    naverLogin,
+    postNaverLogin,
+    kakaoLogin,
+    postKakaoLogin,
+    googleLogin,
+    postGoogleLogin
   } from "../controllers/userController";
 import { onlyPublic, onlyPrivate } from "../middlewares";
 
@@ -29,7 +35,6 @@ globalRouter.get(routes.search, search);
 globalRouter.get(routes.logout, onlyPrivate, logout);
 
 globalRouter.get(routes.gitHub,githubLogin);
-
 globalRouter.get(
   routes.githubCallback, // 사용자가 돌아올 주소 지정
   passport.authenticate('github', { failureRedirect: "/login"}), // 돌아온 사용자를 passport 인증을 활용해 로그인 , 실패시 /login 페이지로 리다이렉트
@@ -43,6 +48,30 @@ globalRouter.get(
     routes.facebookCallback,
     passport.authenticate("facebook",{failureRedirect:"/login"}),
     postFacebookLogin
+);
+
+globalRouter.get(routes.naver,naverLogin);
+
+globalRouter.get(
+  routes.naverCallback,
+  passport.authenticate("naver",{failureRedirect:"/login"}),
+  postNaverLogin
+);
+
+globalRouter.get(routes.kakao,kakaoLogin);
+
+globalRouter.get(
+  routes.kakaoCallback,
+  passport.authenticate("kakao",{failureRedirect:"/login"}),
+  postKakaoLogin
+);
+
+globalRouter.get(routes.google,googleLogin);
+
+globalRouter.get(
+  routes.googleCallback,
+  passport.authenticate("google",{failureRedirect:"/login"}),
+  postGoogleLogin
 );
 
 export default globalRouter;

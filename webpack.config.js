@@ -1,10 +1,10 @@
-const path = require("path");
+const path = require("path"); // 전체 경로를 사용하기위해
 const autoprefixer = require("autoprefixer");
-const ExtractCSS = require('extract-text-webpack-plugin');
+const ExtractCSS = require("extract-text-webpack-plugin");
 
 const MODE = process.env.WEBPACK_ENV;
 const ENTRY_FILE = path.resolve(__dirname, "assets", "js", "main.js"); // assets/js/main.js파일을 의미
-const OUTPUT_DIR = path.join(__dirname, "static"); 
+const OUTPUT_DIR = path.join(__dirname, "static"); // dirname : 현재 프로젝트의 디렉토리 이름
 const config = {
   entry: ["@babel/polyfill",ENTRY_FILE], // entry : 파일들이 어디에서 왔는지
   mode: MODE, // develop인지 production 인지 설정

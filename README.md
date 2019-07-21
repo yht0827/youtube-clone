@@ -18,3 +18,5 @@ Cloning Youtube with Vanilla and NodeJS
 - [ ] Passportjs
 - [ ] avatar in Comments
 - [ ] Change css  
+- [ ] Delete Video
+- [ ] Delete User

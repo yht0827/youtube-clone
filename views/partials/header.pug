@@ -3,20 +3,26 @@ header.header
         .header__column
             a(href=routes.home)
                 i.fab.fa-youtube
+                span &nbsp;  YouTube
         .header__column
             form(action=routes.search, method="get")
-                input(type="text", placeholder="Search by term...", name="term")
+                input(type="text", placeholder="Search", name="term")
         .header__column
             ul
                 if !loggedUser
                     li
-                        a(href=routes.join) Join
+                        a(href=routes.join) 
+                                div Join
                     li
-                        a(href=routes.login) Log In
+                        a(href=routes.login)
+                                div Log In
                 else 
                     li
-                        a(href=`/videos${routes.upload}`) Upload  
+                        a(href=`/videos${routes.upload}`)
+                             i.material-icons video_call
                     li
-                        a(href=routes.me) Profile
+                        a(href=routes.logout)
+                             i.fas.fa-sign-out-alt
                     li
-                        a(href=routes.logout) Log Out
+                        a(href=routes.me)
+                            img.u-avatar(src=`${loggedUser.avatarUrl}` style="height: 36px")

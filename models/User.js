@@ -4,9 +4,12 @@ import passportLocalMongoose from "passport-local-mongoose";
 const UserSchema= new mongoose.Schema({
     name:String,
     email:String,
-    avatarUrl:String,
+    avatarUrl:{type: String, default:"https://heetube.s3.ap-northeast-2.amazonaws.com/avatar/facebook-avatar.jpg"},
     facebookId: Number,
     githubId:Number,
+    naverId:Number,
+    kakaoId:Number,
+    googleId:Number,
     comments: [
     {
         type: mongoose.Schema.Types.ObjectId,

@@ -1,8 +1,11 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
 import FacebookStrategy from "passport-facebook";
+import GoogleStrategy from "passport-google-oauth20";
+import NaverStrategy from "passport-naver";
+import KakaoStrategy from "passport-kakao";
 import User from "./models/User";
-import { githubLoginCallback, facebookLoginCallback } from "./controllers/userController";
+import { githubLoginCallback, facebookLoginCallback, naverLoginCallback, kakaoLoginCallback, googleLoginCallback } from "./controllers/userController";
 import routes from "./routes";
 
 passport.use(User.createStrategy());// strategy ->  로그인 하는방식  password 및 계정 인증을 검사해준다.  
@@ -21,6 +24,27 @@ passport.use(new FacebookStrategy({
     profileFields:["id","displayName","photos","email"],
     scope:["public_profile","email"]
 },facebookLoginCallback)
+);
+
+passport.use(new NaverStrategy({
+    clientID: process.env.N_ID,
+    clientSecret: process.env.N_PW,
+    callbackURL: `http://localhost:4000${routes.naverCallback}`,
+},naverLoginCallback)
+);
+
+passport.use(new KakaoStrategy({
+    clientID: process.env.KAKAO_KEY,
+    callbackURL: `http://localhost:4000${routes.kakaoCallback}`
+},kakaoLoginCallback)
+);
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.Google_ID,
+    clientSecret: process.env.Google_SECRET,
+    callbackURL: `http://localhost:4000${routes.googleCallback}`,
+    scope: ["profile", "email"] 
+},googleLoginCallback)
 );
 
 passport.serializeUser(User.serializeUser()); /* 쿠키에게 정보를 준다(Serialization), 어떤 field가 쿠키에 포함되어 있는지 알려줌, 

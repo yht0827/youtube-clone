@@ -10,7 +10,6 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import apiRouter from "./routers/apiRrouter";
 
-
 import {
     localsMiddleware
 } from "./middlewares";
