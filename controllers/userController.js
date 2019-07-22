@@ -71,17 +71,6 @@ export const githubLoginCallback = async (_, __, profile, cb) => { // github페�
 export const postGithubLogIn = (req,res) => { // github 로그인 성공시 실행
 res.redirect(routes.home);
 };
-
-export const naverLogin = passport.authenticate("naver"); 
-
-export const naverLoginCallback = (accessToken,refreshToken, profile, done) => {
-  console.log(accessToken,refreshToken, profile, done);
-};
-
-export const postNaverLogin = (req,res) => {
-  res.redirect(routes.home);
-};
-
 export const googleLogin = passport.authenticate("google"); 
 
 export const googleLoginCallback = async (accessToken,refreshToken, profile,cb) => {
@@ -240,4 +229,3 @@ export const getChangePassword = (req, res) =>
       res.render(`/users/${routes.changePassword}`);
     }
   }
-

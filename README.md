@@ -1,8 +1,8 @@
 # YouTube-Clone
 
-Cloning Youtube with Vanilla and NodeJS
+Cloning Youtube with ES6 and NodeJS
 
-## Pages : 
+## Works : 
 
 - [X] Home
 - [X] Join
@@ -14,9 +14,10 @@ Cloning Youtube with Vanilla and NodeJS
 - [X] Upload
 - [X] Video Detail
 - [X] Edit Video
+- [X] Passportjs
+- [ ] Make a Popup when click profile image
 - [ ] Delete Comments
-- [ ] Passportjs
 - [ ] avatar in Comments
-- [ ] Change css  
 - [ ] Delete Video
 - [ ] Delete User
+- [ ] Change css  

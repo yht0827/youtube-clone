@@ -14,7 +14,6 @@ const multerVideo = multer({
       s3,
       acl:"public-read",
       bucket:"heetube/video"
-      
     })
 });
 
@@ -23,7 +22,6 @@ const multerAvatar = multer({
     s3,
     acl:"public-read",
     bucket:"heetube/avatar"
-    
   })
 });
 
