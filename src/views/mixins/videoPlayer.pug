@@ -1,6 +1,6 @@
 mixin videoPlayer(video = {})  
     .videoPlayer#jsVideoPlayer
-        video(src=video.src loop autoplay controls="true" width='100%')
+        video(src=video.src loop autoplay width='100%' height='100%')
         .videoPlayer__controls
             .videoPlayer__column
                 span#jsVolumeBtn
