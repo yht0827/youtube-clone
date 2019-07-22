@@ -12,14 +12,14 @@ passport.use(User.createStrategy());// strategy ->  로그인 하는방식  pass
 passport.use(new GithubStrategy({ // github strategy등록 
     clientID:process.env.GH_ID,
     clientSecret:process.env.GH_SECRET,
-    callbackURL: process.env.PRODUCTION === true? `https://vast-wave-24348.herokuapp.com${routes.githubCallback}`:`http://localhost:4000${routes.githubCallback}`
+    callbackURL: `https://vast-wave-24348.herokuapp.com${routes.githubCallback}`
 }, githubLoginCallback)
 );
 
 passport.use(new FacebookStrategy({
     clientID:process.env.FB_ID,
     clientSecret:process.env.FB_SECRET,
-    callbackURL:process.env.PRODUCTION === true? `https://vast-wave-24348.herokuapp.com${routes.facebookCallback}`:`http://localhost:4000${routes.facebookCallback}`,
+    callbackURL:`https://vast-wave-24348.herokuapp.com${routes.facebookCallback}`,
     profileFields:["id","displayName","photos","email"],
     scope:["public_profile","email"]
 },facebookLoginCallback)
@@ -27,14 +27,14 @@ passport.use(new FacebookStrategy({
 
 passport.use(new KakaoStrategy({
     clientID: process.env.KAKAO_KEY,
-    callbackURL: process.env.PRODUCTION === true? `https://vast-wave-24348.herokuapp.com${routes.kakaoCallback}`:`http://localhost:4000${routes.kakaoCallback}`
+    callbackURL: `https://vast-wave-24348.herokuapp.com${routes.kakaoCallback}`
 },kakaoLoginCallback)
 );
 
 passport.use(new GoogleStrategy({
     clientID: process.env.Google_ID,
     clientSecret: process.env.Google_SECRET,
-    callbackURL: process.env.PRODUCTION === true? `https://vast-wave-24348.herokuapp.com${routes.googleCallback}`:`http://localhost:4000${routes.googleCallback}`,
+    callbackURL: `https://vast-wave-24348.herokuapp.com${routes.googleCallback}`,
     scope: ["profile", "email"] 
 },googleLoginCallback)
 );
