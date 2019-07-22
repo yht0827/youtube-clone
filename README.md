@@ -18,6 +18,8 @@ Cloning Youtube with ES6 and NodeJS
 - [ ] Make a Popup when click profile image
 - [ ] Delete Comments
 - [ ] avatar in Comments
-- [ ] Delete Video
+- [ ] videoplayer << , >> button
+- [ ] Mobile videoPlayer
+- [ ] - [ ] Delete Video
 - [ ] Delete User
 - [ ] Change css  
