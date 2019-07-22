@@ -107,6 +107,8 @@ export const kakaoLoginCallback = async (_,__, profile, cb) => {
               }
             }
           }=profile;
+
+          console.log(profile);
  try{
     const user = await User.findOne({email});
     if(user){
