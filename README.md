@@ -20,6 +20,7 @@ Cloning Youtube with ES6 and NodeJS
 - [ ] avatar in Comments
 - [ ] videoplayer << , >> button
 - [ ] Mobile videoPlayer
-- [ ] - [ ] Delete Video
+- [ ] Delete Video
 - [ ] Delete User
+- [ ] preview avatar(프로필 이미지 업로드 전 미리보기)
 - [ ] Change css  
