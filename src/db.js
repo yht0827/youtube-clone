@@ -4,10 +4,10 @@ import dotenv from "dotenv"; // 파일을 숨기기 위해 사용(DB와 포트�
 dotenv.config();
 
 mongoose.connect(
-  process.env.MONGO_URL_PROD, {
+  process.env.PRODUCTION === true? process.env.MONGO_URL_PROD : process.env.MONGO_URL,{
     useNewUrlParser: true,
     useFindAndModify: false
-  });
+});
 
 const db = mongoose.connection;
 
