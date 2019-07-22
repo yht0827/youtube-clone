@@ -107,10 +107,6 @@ export const kakaoLoginCallback = async (_,__, profile, cb) => {
               }
             }
           }=profile;
-         let avatar = profile._json.properties.profile_image;
-         if(avatar=== null){
-          avatar="https://heetube.s3.ap-northeast-2.amazonaws.com/avatar/facebook-avatar.jpg";
-        }    
  try{
     const user = await User.findOne({email});
     if(user){
@@ -122,7 +118,7 @@ export const kakaoLoginCallback = async (_,__, profile, cb) => {
         email,
         name:nickname,
         kakaoId:id,
-        avatarUrl:avatar
+        avatarUrl:"https://heetube.s3.ap-northeast-2.amazonaws.com/avatar/facebook-avatar.jpg"
       });
       return cb(null,newUser);
   } catch (error){
