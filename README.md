@@ -23,3 +23,5 @@ Cloning Youtube with ES6 and NodeJS
 - [ ] Delete User
 - [ ] preview avatar(프로필 이미지 업로드 전 미리보기)
 - [ ] Change css with grid display
+- [ ] Make a Back-end with Prisma
+- [ ] Deploy AWS Ec2 or ElasticBeanstalk
