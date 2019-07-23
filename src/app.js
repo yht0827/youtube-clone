@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
+import flash from "express-flash";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
@@ -38,6 +39,7 @@ app.use(session({   // express에서 세션을 관리하기 위한 미들웨어
     saveUninitialized:false,    // 초기화 되지 않은 세션을 저장소에 저장
     store: new CookieStore({mongooseConnection: mongoose.connection}) // moongoose는 저장소를 mongodb에 연결
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session()); // 쿠키에대한 사용자 찾아주고 쿠키를 req.user로 만들어준다.
 

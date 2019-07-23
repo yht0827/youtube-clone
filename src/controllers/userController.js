@@ -18,6 +18,7 @@ export const postJoin = async (req, res, next) => {
     }
   } = req;
   if (password !== password2) {
+    req.flash("error","Password don't match");
     res.status(400);
     res.render("join", {
       pageTitle: "Join"
@@ -41,10 +42,12 @@ export const getLogin = (req, res) =>
   });
 export const postLogin = passport.authenticate("local",{ // local로그인
   failureRedirect: routes.login,
-  successRedirect: routes.home
+  successRedirect: routes.home,
+  failureFlash:"Can't Log In",
+  successFlash:"Welcome"
 });
 
-export const githubLogin = passport.authenticate("github"); // github 버튼 눌렀을 시 
+export const githubLogin = passport.authenticate("github",{successFlash:"Welcome",failureFlash:"Can't Log In"}); // github 버튼 눌렀을 시 
 
 export const githubLoginCallback = async (_, __, profile, cb) => { // github페이지에서 돌아오면서 사용자 정보를 얻게 된다.
   
@@ -71,7 +74,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => { // github페�
 export const postGithubLogIn = (req,res) => { // github 로그인 성공시 실행
 res.redirect(routes.home);
 };
-export const googleLogin = passport.authenticate("google"); 
+export const googleLogin = passport.authenticate("google",{successFlash:"Welcome",failureFlash:"Can't Log In"}); 
 
 export const googleLoginCallback = async (accessToken,refreshToken, profile,cb) => {
    const {_json:{sub:id,name,picture:avatarUrl,email}} = profile;
@@ -98,7 +101,7 @@ export const postGoogleLogin = (req,res) => {
   res.redirect(routes.home);
 };
 
-export const kakaoLogin = passport.authenticate("kakao"); 
+export const kakaoLogin = passport.authenticate("kakao",{successFlash:"Welcome",failureFlash:"Can't Log In"}); 
 
 export const kakaoLoginCallback = async (_,__, profile, cb) => {
     const {_json:{id,kaccount_email:email,
@@ -130,7 +133,7 @@ export const postKakaoLogin = (req,res) => {
   res.redirect(routes.home);
 };
 
-export const facebookLogin = passport.authenticate("facebook"); 
+export const facebookLogin = passport.authenticate("facebook",{successFlash:"Welcome",failureFlash:"Can't Log In"}); 
 
 export const facebookLoginCallback = async (_, __, profile, cb) => {
   const {_json:{id,name,email}}=profile;
@@ -159,6 +162,7 @@ export const postFacebookLogin = (req,res) => {
 }
 
 export const logout = (req, res) => {
+  req.flash('info',"Logged Out");
   req.logout();
   res.redirect(routes.home);
 };
@@ -179,6 +183,7 @@ export const userDetail = async (req, res) =>{
       pageTitle: "User Detail",user
     });
   } catch (error) {
+    req.flash("error","User not found");
     res.redirect(routes.home);
   }
 }
@@ -198,8 +203,10 @@ export const getEditProfile = (req, res) =>
           email,
           avatarUrl: file ? file.location : req.user.avatarUrl
         });
+        req.flash("success","Profile updated");
         res.redirect(routes.me);
       } catch (error) {
+        req.flash("error","Can't Update Profile");
         res.rendirect(routes.editProfile);
       }
   };
@@ -218,14 +225,17 @@ export const getChangePassword = (req, res) =>
 
     try {
         if(newPassword !== newPassword1){
+          req.flash("error","Passwords don't match");
           res.status(400);
           res.redirect(`/users/${routes.changePassword}`);
           return;
         }
         await req.user.changePassword(oldPassword,newPassword);
+        req.flash("success","Password Changed");
         req.redirect(routes.me);
     } catch (error) {
       res.status(400);
+      req.flash("error","Can't Change Password");
       res.render(`/users/${routes.changePassword}`);
     }
   }

@@ -1,0 +1,43 @@
+@keyframes flashAnimation{
+    
+     0%{
+        transform: translateY(-70px);
+     }
+
+     5%{
+        transform: translateY(0px);
+     }
+
+     95%{
+        transform: translateY(0px);
+     }
+
+     100%{
+        transform: translateY(-70px);
+     }
+}
+
+.flash-message__container{
+    position: fixed;
+    top:0;
+    animation: flashAnimation 3s ease-in-out forwards; // 100%에서 다시 0%로 안돌아가게 forwards를 넣어준다.
+    left:0;
+    width: 100%;
+    padding: 20px;
+    z-index: 9;
+    text-align: center;
+
+    &.error{
+        background-color: #c0392b;
+    }
+    &.success{
+        background-color: #2ecc71;
+    }
+    &.info{
+        background-color: #f1c40f;
+    }
+    .flash-message__text{
+        color:white;
+        font-size: 16px;
+    }
+}
