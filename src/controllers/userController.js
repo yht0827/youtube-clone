@@ -31,7 +31,11 @@ export const postJoin = async (req, res, next) => {
      await User.register(user,password);
      next();
     } catch (error) {
-      console.log(error);
+      req.flash("error","A user already registered");
+      res.status(400);
+      res.render("join", {
+        pageTitle: "Join"
+      });
     }
   }
 };
@@ -47,7 +51,7 @@ export const postLogin = passport.authenticate("local",{ // local로그인
   successFlash:"Welcome"
 });
 
-export const githubLogin = passport.authenticate("github",{successFlash:"Welcome",failureFlash:"Can't Log In"}); // github 버튼 눌렀을 시 
+export const githubLogin = passport.authenticate("github"); // github 버튼 눌렀을 시 
 
 export const githubLoginCallback = async (_, __, profile, cb) => { // github페이지에서 돌아오면서 사용자 정보를 얻게 된다.
   
@@ -74,7 +78,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => { // github페�
 export const postGithubLogIn = (req,res) => { // github 로그인 성공시 실행
 res.redirect(routes.home);
 };
-export const googleLogin = passport.authenticate("google",{successFlash:"Welcome",failureFlash:"Can't Log In"}); 
+export const googleLogin = passport.authenticate("google"); 
 
 export const googleLoginCallback = async (accessToken,refreshToken, profile,cb) => {
    const {_json:{sub:id,name,picture:avatarUrl,email}} = profile;
@@ -101,7 +105,7 @@ export const postGoogleLogin = (req,res) => {
   res.redirect(routes.home);
 };
 
-export const kakaoLogin = passport.authenticate("kakao",{successFlash:"Welcome",failureFlash:"Can't Log In"}); 
+export const kakaoLogin = passport.authenticate("kakao"); 
 
 export const kakaoLoginCallback = async (_,__, profile, cb) => {
     const {_json:{id,kaccount_email:email,
@@ -133,7 +137,7 @@ export const postKakaoLogin = (req,res) => {
   res.redirect(routes.home);
 };
 
-export const facebookLogin = passport.authenticate("facebook",{successFlash:"Welcome",failureFlash:"Can't Log In"}); 
+export const facebookLogin = passport.authenticate("facebook"); 
 
 export const facebookLoginCallback = async (_, __, profile, cb) => {
   const {_json:{id,name,email}}=profile;
@@ -162,7 +166,7 @@ export const postFacebookLogin = (req,res) => {
 }
 
 export const logout = (req, res) => {
-  req.flash('info',"Logged Out");
+  req.flash('info',"Bye Bye");
   req.logout();
   res.redirect(routes.home);
 };

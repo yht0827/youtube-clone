@@ -35,7 +35,11 @@ globalRouter.get(routes.logout, onlyPrivate, logout);
 globalRouter.get(routes.gitHub,githubLogin);
 globalRouter.get(
   routes.githubCallback, // 사용자가 돌아올 주소 지정
-  passport.authenticate('github', { failureRedirect: "/login"}), // 돌아온 사용자를 passport 인증을 활용해 로그인 , 실패시 /login 페이지로 리다이렉트
+  passport.authenticate('github',{
+    failureRedirect:"/login", // 돌아온 사용자를 passport 인증을 활용해 로그인 , 실패시 /login 페이지로 리다이렉트
+    successFlash:"Welcome",   // FlashMessage 로그인 성공시 welcome
+    failureFlash:"Can't Log In"
+  }),                     
   postGithubLogIn // 로그인 완료되면 홈으로 리다이렉트
 );
 
@@ -44,7 +48,11 @@ globalRouter.get(routes.me,getMe);
 globalRouter.get(routes.facebook,facebookLogin);
 globalRouter.get(
     routes.facebookCallback,
-    passport.authenticate("facebook",{failureRedirect:"/login"}),
+    passport.authenticate("facebook",{
+      failureRedirect:"/login",
+      successFlash:"Welcome",
+      failureFlash:"Can't Log In"
+    }),
     postFacebookLogin
 );
 
@@ -52,7 +60,11 @@ globalRouter.get(routes.kakao,kakaoLogin);
 
 globalRouter.get(
   routes.kakaoCallback,
-  passport.authenticate("kakao",{failureRedirect:"/login"}),
+  passport.authenticate("kakao",{
+    failureRedirect:"/login",
+    successFlash:"Welcome",
+    failureFlash:"Can't Log In"
+  }),
   postKakaoLogin
 );
 
@@ -60,8 +72,11 @@ globalRouter.get(routes.google,googleLogin);
 
 globalRouter.get(
   routes.googleCallback,
-  passport.authenticate("google",{failureRedirect:"/login"}),
+  passport.authenticate("google",{
+    failureRedirect:"/login",
+    successFlash:"Welcome",
+    failureFlash:"Can't Log In"
+  }),
   postGoogleLogin
 );
-
 export default globalRouter;

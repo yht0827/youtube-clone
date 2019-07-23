@@ -4,9 +4,8 @@ include mixins/videoBlock
 block content  
     .search_header 
     .search__videos
-        if videos.length ===0
+        if videos.length === 0
             h5 No results found
-            h5 Try different keywords or remove search filters
         each item in videos
             +videoBlock({
                 title:item.title,

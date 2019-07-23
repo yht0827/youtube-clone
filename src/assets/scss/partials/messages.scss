@@ -16,14 +16,13 @@
         transform: translateY(-70px);
      }
 }
-
 .flash-message__container{
     position: fixed;
     top:0;
-    animation: flashAnimation 3s ease-in-out forwards; // 100%에서 다시 0%로 안돌아가게 forwards를 넣어준다.
+    animation: flashAnimation 2s ease-in-out forwards; // 100%에서 다시 0%로 안돌아가게 forwards를 넣어준다.
     left:0;
     width: 100%;
-    padding: 20px;
+    padding: 16px;
     z-index: 9;
     text-align: center;
 
@@ -34,10 +33,11 @@
         background-color: #2ecc71;
     }
     &.info{
-        background-color: #f1c40f;
+        background-color: #fdcb6e;
     }
     .flash-message__text{
         color:white;
         font-size: 16px;
+        font-weight: 700;
     }
 }

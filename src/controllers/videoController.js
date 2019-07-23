@@ -40,7 +40,10 @@ export const search = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-
+    
+    if(videos.length===0){
+        req.flash("error","Can't Find Videos");
+    }
     res.render("search", {
         pageTitle: "Search",
         searchingBy,
@@ -68,6 +71,7 @@ export const postUpload = async (req, res) => {
     });
         req.user.videos.push(newVideo.id);
         req.user.save();
+        req.flash("success","Video Uploaded");
     res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -92,7 +96,6 @@ export const videoDetail = async (req, res) => {
 };
 
 export const getEditVideo = async (req, res) => {
-    
     const {
         params: {
             id
@@ -109,6 +112,7 @@ export const getEditVideo = async (req, res) => {
             });
         }
     } catch (error) {
+        req.flash("error","Video not found");
         res.redirect(routes.home);
     }
 }
@@ -131,8 +135,10 @@ export const postEditVideo = async (req, res) => {
             title,
             description
         });
+        req.flash("success","Video updated");
         res.redirect(routes.videoDetail(id));
     } catch (error) {
+        req.flash("error","Can't Update Video");
         res.redirect(routes.home);
     }
 };
@@ -152,8 +158,10 @@ export const deleteVideo = async (req, res) => {
             await Video.findOneAndRemove({
                 _id: id
             });
+            req.flash("success","Video deleted");
         }
     } catch (error) {
+        req.flash("error","Can't Delete Video");
         console.log(error);
     }
     res.redirect(routes.home);
