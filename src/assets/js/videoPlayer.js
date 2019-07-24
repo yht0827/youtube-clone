@@ -75,12 +75,12 @@ function setProgress(numberDuration) {
   progressInterval = setInterval(getCurrentTime,0, oneSecWidth);
 }
 
-  function setTotalTime() {
+  async function setTotalTime() {
   let duration;
   console.log(videoPlayer.duration);
   if (!isFinite(videoPlayer.duration)) {
-    const blob = fetch(videoPlayer.src).then(response => response.blob());
-    duration = getBlobDuration(blob);
+    const blob = await fetch(videoPlayer.src).then(response => response.blob());
+    duration = await getBlobDuration(blob);
   } else {
     duration = videoPlayer.duration;
   }
