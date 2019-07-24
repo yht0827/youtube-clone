@@ -11,7 +11,6 @@ const totalTime = document.getElementById("jsTotalTime");
 const totalProgress = document.querySelector("#jsTotalProgress");
 const currentProgress = document.querySelector("#jsCurrentProgress");
 const seek = document.querySelector("#jsSeek");
-const vid = document.getElementById("myVideo");
 const spinner = document.getElementById("spinner");
 
 const registerView = () => {
@@ -21,9 +20,11 @@ const registerView = () => {
   });
 }
 
-let stringWidthTotalProgress = window.getComputedStyle(totalProgress).getPropertyValue("width");
-  let numberWidthTotalProgress = parseFloat(Math.floor(
-    stringWidthTotalProgress.split("p")[0],
+let stringWidth__totalProgress = window
+  .getComputedStyle(totalProgress)
+  .getPropertyValue("width");
+  let numberWidth__totalProgress = parseFloat(Math.floor(
+    stringWidth__totalProgress.split("p")[0],
     10)
     );
 let totalTimeString;
@@ -33,7 +34,7 @@ let smallProgress;
 let fullProgress;
 
 const formatDate = seconds => {
-  const array = [];
+  let array = [];
   const secondsNumber = parseInt(seconds, 10);
   let hours = Math.floor(secondsNumber / 3600);
   let minutes = Math.floor((secondsNumber - hours * 3600) / 60);
@@ -45,7 +46,7 @@ const formatDate = seconds => {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-  if (seconds < 10) {
+  if (totalSeconds < 10) {
     totalSeconds = `0${totalSeconds}`;
   }
   array.push(secondsNumber, `${hours}:${minutes}:${totalSeconds}`);
@@ -53,33 +54,33 @@ const formatDate = seconds => {
 };
 
 function getProgressWidth() {
-  stringWidthTotalProgress = window
+  stringWidth__totalProgress = window
     .getComputedStyle(totalProgress)
     .getPropertyValue("width");
-  numberWidthTotalProgress = parseFloat(
-    stringWidthTotalProgress.split("p")[0],
+  numberWidth__totalProgress = parseFloat(
+    stringWidth__totalProgress.split("p")[0],
     10
   );
 }
 
 function getCurrentTime(oneSecWidth) {
-  const numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
-  const currentProgressWidth = oneSecWidth * numberCurrentTime;
-  currentProgress.style.width = `${currentProgressWidth}px`;
+  let numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
+  let currentProgress__width = oneSecWidth * numberCurrentTime;
+  currentProgress.style.width = `${currentProgress__width}px`;
   currentTime.innerHTML = formatDate(videoPlayer.currentTime)[1];
 }
 
 function setProgress(numberDuration) {
-  const oneSecWidth = numberWidthTotalProgress / numberDuration;
+  let oneSecWidth = numberWidth__totalProgress / numberDuration;
   progressInterval = setInterval(getCurrentTime,0, oneSecWidth);
 }
 
- function setTotalTime() {
+  function setTotalTime() {
   let duration;
-
+  console.log(videoPlayer.duration);
   if (!isFinite(videoPlayer.duration)) {
-    const blob =  fetch(videoPlayer.src).then(response => response.blob());
-    duration =  getBlobDuration(blob);
+    const blob = fetch(videoPlayer.src).then(response => response.blob());
+    duration = getBlobDuration(blob);
   } else {
     duration = videoPlayer.duration;
   }
@@ -138,10 +139,10 @@ function handleKeys(event) {
 
  function exitFullScreen() {
   clearInterval(progressInterval);
-  fullProgress=numberWidthTotalProgress;
-  const numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
-  const currentProgressWidth = (fullProgress/ videoPlayer.duration) * numberCurrentTime;
-  currentProgress.style.width = `${(currentProgressWidth *smallProgress)/fullProgress}px`;
+  fullProgress=numberWidth__totalProgress;
+  let numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
+  let currentProgress__width = (fullProgress/ videoPlayer.duration) * numberCurrentTime;
+  currentProgress.style.width = `${(currentProgress__width *smallProgress)/fullProgress}px`;
   fullScreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
   
   if (document.exitFullscreen) {
@@ -153,7 +154,12 @@ function handleKeys(event) {
   } else if (document.msExitFullscreen) {
     document.msExitFullscreen();
   }
-  
+
+  console.log(currentProgress.style.width);
+  console.log(currentProgress__width);
+  console.log(smallProgress);
+  console.log(fullProgress);
+
   fullScreenBtn.addEventListener("click", goFullScreen);
   fullScreenBtn.removeEventListener("click", exitFullScreen);
   setTimeout(getProgressWidth, 100);
@@ -162,10 +168,10 @@ function handleKeys(event) {
 
 function goFullScreen() {
   clearInterval(progressInterval);
-  smallProgress=numberWidthTotalProgress;
-  const numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
-  const currentProgressWidth = (smallProgress/ videoPlayer.duration) * numberCurrentTime;
-    currentProgress.style.width = `${(currentProgressWidth * fullProgress)/smallProgress}px`;
+  smallProgress=numberWidth__totalProgress;
+  let numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
+  let currentProgress__width = (smallProgress/ videoPlayer.duration) * numberCurrentTime;
+    currentProgress.style.width = `${(currentProgress__width * fullProgress)/smallProgress}px`;
 
   if (videoContainer.requestFullscreen) {
     videoContainer.requestFullscreen();
@@ -222,48 +228,41 @@ function handleEnded() {
 
 function handleposition(event){
    const divX= event.offsetX-seek.offsetLeft;
-   const numberCurrentTime = divX/ (numberWidthTotalProgress / videoPlayer.duration);
+   const numberCurrentTime = divX/ (numberWidth__totalProgress / videoPlayer.duration);
     currentProgress.style.width = `${divX}px`;
     videoPlayer.currentTime= numberCurrentTime ;
     currentTime.innerHTML = formatDate(videoPlayer.currentTime)[1];
 }
 
-  function init() {
-    videoPlayer.volume = 0.5;
-    document.addEventListener("keydown", handleKeys);
-    playBtn.addEventListener("click", handlePlayClick);
-    videoPlayer.addEventListener("click", handlePlayClick);
-    videoPlayer.addEventListener("ended", handleEnded);
-    videoPlayer.addEventListener("mouseover", showController);
-    videoController.addEventListener("mouseover", showController);
-    videoController.addEventListener("mouseout", hideController);
-    videoPlayer.addEventListener("mousemove", sensingMouse);
-    videoPlayer.addEventListener("click", sensingMouse);
-    videoPlayer.addEventListener("mouseout", hideController);
-    volumeBtn.addEventListener("click", handleVolumeClick);
-    volumeRange.addEventListener("input", handleDrag);
-    fullScreenBtn.addEventListener("click", goFullScreen);
-    
+function init() {
+  videoPlayer.volume = 0.5;
+  document.addEventListener("keydown", handleKeys);
+  playBtn.addEventListener("click", handlePlayClick);
+  videoPlayer.addEventListener("click", handlePlayClick);
+  videoPlayer.addEventListener("ended", handleEnded);
+  videoPlayer.addEventListener("mouseover", showController);
+  videoController.addEventListener("mouseover", showController);
+  videoController.addEventListener("mouseout", hideController);
+  videoPlayer.addEventListener("mousemove", sensingMouse);
+  videoPlayer.addEventListener("click", sensingMouse);
+  videoPlayer.addEventListener("mouseout", hideController);
+  volumeBtn.addEventListener("click", handleVolumeClick);
+  volumeRange.addEventListener("input", handleDrag);
+  fullScreenBtn.addEventListener("click", goFullScreen);
+
     seek.addEventListener("click",handleposition);
     videoPlayer.addEventListener("mouseover", setTotalTime);
     videoPlayer.addEventListener("progress", setTotalTime);
     videoPlayer.addEventListener("loadedmetadata", setTotalTime);
 
-    vid.addEventListener('waiting', (event) => {
+    videoPlayer.addEventListener('waiting', () => {
       spinner.removeAttribute('hidden');
-      console.log('Video is waiting for more data.');
-      console.log(event);
     });
-
-    vid.addEventListener('canplay', (event) => {
+    videoPlayer.addEventListener('canplay', () => {
       spinner.setAttribute('hidden', '');
-      console.log('Video can start, but not sure it will play through.');
-      console.log(event);
     });
-
-
-
   }
+  
   if (videoContainer) {
     init();
   }
