@@ -19,7 +19,7 @@
 .flash-message__container{
     position: fixed;
     top:0;
-    animation: flashAnimation 2s ease-in-out forwards; // 100%에서 다시 0%로 안돌아가게 forwards를 넣어준다.
+    animation: flashAnimation 1.2s ease-in-out forwards; // 100%에서 다시 0%로 안돌아가게 forwards를 넣어준다.
     left:0;
     width: 100%;
     padding: 16px;

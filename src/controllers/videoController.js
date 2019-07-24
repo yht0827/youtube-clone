@@ -1,6 +1,13 @@
+import aws from 'aws-sdk';
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
+
+const s3 = new aws.S3({
+    accessKeyId:process.env.AWS_KEY,
+    secretAccessKey: process.env.AWS_PRIVATE_KEY,
+    region:"ap-northeast-2"
+  });
 
 
 export const home = async (req, res) => {
@@ -84,8 +91,9 @@ export const videoDetail = async (req, res) => {
 
     try {
         const video = await Video.findById(id)
-        .populate("creator")
-        .populate("comments");// populate는 객체만 가져올수 있다. join과 같은 개념
+        .populate('creator')
+        .populate('comments');// populate는 객체만 가져올수 있다. join과 같은 개념
+
         res.render("videoDetail", {
             pageTitle: video.title,
             video
@@ -149,23 +157,40 @@ export const deleteVideo = async (req, res) => {
             id
         }
     } = req;
+    const video = await Video.findById(id).populate('creator').populate('comments');
+    const tmpArray = video.fileUrl.split('/');
+    const fileName = tmpArray[tmpArray.length - 1];
+
     try {
-        const video = await Video.findById(id);
-        
-        if(String(video.creator) !== req.user.id){
+        if(String(video.creator.id) !== req.user.id){
             throw Error();
         }else{
-            await Video.findOneAndRemove({
-                _id: id
-            });
-            req.flash("success","Video deleted");
+    
+    const params = {
+        Bucket:"heetube/video",
+		Key: fileName
+      };
+      s3.deleteObject(params, (err,data) => {
+        if (err) {
+          console.log('video delete error!');
+        } else {
+          console.log('video delete sucess');
+          console.log(data);
         }
+      });
+        video.comments.forEach(async (element) => {
+            await  Comment.findOneAndRemove({_id:element});
+            });
+      await video.remove();
+
+      req.flash("success","Video deleted");
+    }
     } catch (error) {
         req.flash("error","Can't Delete Video");
         console.log(error);
     }
     res.redirect(routes.home);
-}
+};
 
 // Register Video View
 
@@ -206,4 +231,28 @@ try {
 } finally{
     res.end();
 }
+};
+
+export const postDeleteComment = async(req,res) => {
+
+    const{
+        params:{id},
+        body: {commentId},
+        user
+    }=req;
+
+     try {
+        const video = await Video.findById(id);
+        const comment = await Comment.findById(commentId);
+        
+        if(comment.creator.toString() === user.id){
+            await comment.remove();
+            await video.comments.remove(commentId);
+            await video.save();
+            }
+        } catch (error) {
+                res.status(400);
+        } finally{
+            res.end();
+        } 
 };

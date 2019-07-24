@@ -1,5 +1,6 @@
 extends layouts/main
 include mixins/videoPlayer
+include mixins/commentBlock
 
 block content  
     .video-detail__container
@@ -20,17 +21,18 @@ block content
                 |Uploaded by 
                 a(href=routes.userDetail(video.creator.id))=video.creator.name
         .video__comments
-            if video.comments.length === 1
-                span.video__comment-number
-                    span#jsCommentNumber 1 
-                    | comment
-            else
-                span.video__comment-number
-                    span#jsCommentNumber #{video.comments.length}
-                    | comments
-            form.add__comment#jsAddComment
-                input(type="text", placeholder="  댓글 추가")
+                if video.comments.length == 1
+                    span.video__comment-number
+                        span#jsCommentNumber 1
+                        |  comment
+                else
+                    span.video__comment-number
+                        span#jsCommentNumber #{video.comments.length}
+                        |  comments             
+                if loggedUser
+                    form.add__comment#jsAddComment
+                        input(type="text", placeholder="  Add a comment...")
                 ul.video__comments-list#jsCommentList
-                    each comment in video.comments
-                       li
-                         span=comment.text
+                    each comment in video.comments.reverse()
+                     li(id=comment.id)
+                      +commentBlock(comment)

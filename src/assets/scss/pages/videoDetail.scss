@@ -47,7 +47,7 @@
       }
       .video__comments-list{
         margin-top: 50px;
-        li{
+        .video__comment{
           background-color: #3498db;
           color:white;
           padding: 15px;
@@ -56,6 +56,9 @@
           &:not(:last-child){
             margin-bottom: 15px;
           }
+        }
+        i {
+          cursor: pointer;
         }
       }
     }

@@ -1,0 +1,5 @@
+mixin commentBlock(comment)
+    .video__comment
+        span=comment.text
+    if loggedUser && comment.creator == loggedUser.id
+     i.fas.fa-times
