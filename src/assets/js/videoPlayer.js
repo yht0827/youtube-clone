@@ -22,7 +22,6 @@ const registerView = () => {
 }
 
 let stringWidthTotalProgress = window.getComputedStyle(totalProgress).getPropertyValue("width");
-  console.log(stringWidthTotalProgress);
   let numberWidthTotalProgress = parseFloat(Math.floor(
     stringWidthTotalProgress.split("p")[0],
     10)
@@ -229,15 +228,6 @@ function handleposition(event){
     currentTime.innerHTML = formatDate(videoPlayer.currentTime)[1];
 }
 
-  function loading(){
-    vid.onwaiting =() => {
-      spinner.removeAttribute('hidden');
-    };
-      vid.oncanplay =() => {
-      spinner.setAttribute('hidden', '');
-    };
-  }
-
   function init() {
     videoPlayer.volume = 0.5;
     document.addEventListener("keydown", handleKeys);
@@ -258,8 +248,21 @@ function handleposition(event){
     videoPlayer.addEventListener("mouseover", setTotalTime);
     videoPlayer.addEventListener("progress", setTotalTime);
     videoPlayer.addEventListener("loadedmetadata", setTotalTime);
-    loading();
-  
+
+    vid.addEventListener('waiting', (event) => {
+      spinner.removeAttribute('hidden');
+      console.log('Video is waiting for more data.');
+      console.log(event);
+    });
+
+    vid.addEventListener('canplay', (event) => {
+      spinner.setAttribute('hidden', '');
+      console.log('Video can start, but not sure it will play through.');
+      console.log(event);
+    });
+
+
+
   }
   if (videoContainer) {
     init();
