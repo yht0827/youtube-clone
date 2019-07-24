@@ -253,7 +253,7 @@ function init() {
     seek.addEventListener("click",handleposition);
     videoPlayer.addEventListener("mouseover", setTotalTime);
     videoPlayer.addEventListener("progress", setTotalTime);
-    videoPlayer.addEventListener("loadedmetadata", setTotalTime);
+    videoPlayer.addEventListener("loadedmetadata", setTotalTime());
 
     videoPlayer.addEventListener('waiting', () => {
       spinner.removeAttribute('hidden');
