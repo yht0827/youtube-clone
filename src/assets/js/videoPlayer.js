@@ -77,7 +77,6 @@ function setProgress(numberDuration) {
 
   async function setTotalTime() {
   let duration;
-  console.log(videoPlayer.duration);
   if (!isFinite(videoPlayer.duration)) {
     const blob = await fetch(videoPlayer.src).then(response => response.blob());
     duration = await getBlobDuration(blob);
@@ -154,11 +153,6 @@ function handleKeys(event) {
   } else if (document.msExitFullscreen) {
     document.msExitFullscreen();
   }
-
-  console.log(currentProgress.style.width);
-  console.log(currentProgress__width);
-  console.log(smallProgress);
-  console.log(fullProgress);
 
   fullScreenBtn.addEventListener("click", goFullScreen);
   fullScreenBtn.removeEventListener("click", exitFullScreen);
@@ -255,11 +249,13 @@ function init() {
     videoPlayer.addEventListener("progress", setTotalTime);
     videoPlayer.addEventListener("loadedmetadata", setTotalTime());
 
-    videoPlayer.addEventListener('waiting', () => {
-      spinner.removeAttribute('hidden');
+    videoPlayer.addEventListener("waiting", () => {
+      console.log("Wait");
+      spinner.removeAttribute("hidden");
     });
-    videoPlayer.addEventListener('canplay', () => {
-      spinner.setAttribute('hidden', '');
+    videoPlayer.addEventListener("canplay", () => {
+      console.log("Start");
+      spinner.setAttribute("hidden", "");
     });
   }
   
