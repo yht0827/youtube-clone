@@ -38,6 +38,17 @@
         }
         &:last-child {
           justify-self: end;
+          .btn {
+              line-height: unset;
+              margin: unset;
+              padding: unset;
+          }
+          .btn:focus{
+            box-shadow: unset;
+        }
+        .dropdown-toggle::after{
+          content:unset;
+        }
         }
         ul {
           display: flex;

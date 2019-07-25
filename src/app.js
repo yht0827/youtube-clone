@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import favicon from "serve-favicon";
 import helmet from "helmet";
 import flash from "express-flash";
 import cookieParser from "cookie-parser";
@@ -20,9 +21,8 @@ import globalRouter from "./routers/globalRouter";
 import "./passport";
 
 const app = express();
-
+app.use(favicon(path.join(__dirname,'favicon.ico')));
 const CookieStore = MongoStore(session); // session을 mongodb에 저장
-
 app.use(helmet()); // secure
 app.set("view engine", "pug"); 
 app.set("views",path.join(__dirname,"views"));

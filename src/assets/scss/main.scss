@@ -51,3 +51,8 @@ button,
 input[type="submit"] {
   cursor: pointer;
 }
+
+a:hover{
+  color: unset;
+  text-decoration: unset;
+}

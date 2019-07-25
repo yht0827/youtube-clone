@@ -8,19 +8,19 @@ header.header
             form(action=routes.search, method="get")
                 input(type="text", placeholder="Search", name="term")
         .header__column
-            ul
-                if !loggedUser
+            if !loggedUser
+                ul
                     li
                         a(href=routes.join) 
                                 i.fas.fa-sign-in-alt
                     li
                         button
                             a(href=routes.login) Sign In
-                else 
-                    div.dropdown
-                        a.btn.btn-secondary.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")#dropdownMenuLink
-                            img.u-avatar(src=`${loggedUser.avatarUrl}` style="height: 36px")
-                        div.dropdown-menu(aria-labelledby="dropdownMenuLink")
-                            a.dropdown-item(href="#") Action
-                            a.dropdown-item(href="#") Action
-                            a.dropdown-item(href="#") Action
+            else 
+                div.dropdown
+                    a.btn.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")#dropdownMenuLink
+                        img.u-avatar(src=`${loggedUser.avatarUrl}` style="height: 36px")
+                    div.dropdown-menu(aria-labelledby="dropdownMenuLink")
+                        a.dropdown-item(href="#") Action
+                        a.dropdown-item(href="#") Action
+                        a.dropdown-item(href="#") Action
