@@ -10,6 +10,7 @@ const currentTime = document.getElementById("jsCurrentTime");
 const totalTime = document.getElementById("jsTotalTime");
 const totalProgress = document.querySelector("#jsTotalProgress");
 const currentProgress = document.querySelector("#jsCurrentProgress");
+const loadProgress = document.querySelector("#jsLoadProgress");
 const seek = document.querySelector("#jsSeek");
 const spinner = document.getElementById("spinner");
 
@@ -65,8 +66,17 @@ function getProgressWidth() {
 
 function getCurrentTime(oneSecWidth) {
   let numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
-  let currentProgress__width = oneSecWidth * numberCurrentTime;
-  currentProgress.style.width = `${currentProgress__width}px`;
+  if(fullFlag){
+    let currentProgress__width = (smallProgress/ videoPlayer.duration) * numberCurrentTime;
+    currentProgress.style.width = `${(currentProgress__width*numberWidth__totalProgress)/smallProgress}px`;
+  }else if(!fullFlag && !initFlag){
+    let currentProgress__width = (fullProgress/ videoPlayer.duration) * numberCurrentTime;
+    currentProgress.style.width = `${(currentProgress__width*numberWidth__totalProgress)/fullProgress}px`;
+  }else if(!fullFlag && initFlag){
+    let currentProgress__width = oneSecWidth * numberCurrentTime;
+   currentProgress.style.width = `${currentProgress__width}px`;
+ }
+  
   currentTime.innerHTML = formatDate(videoPlayer.currentTime)[1];
 }
 
@@ -135,13 +145,13 @@ function handleKeys(event) {
     handlePlayClick();
   }
 }
+  let initFlag=true;
 
  function exitFullScreen() {
+   fullFlag=false;
+   initFlag=false;
   clearInterval(progressInterval);
   fullProgress=numberWidth__totalProgress;
-  let numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
-  let currentProgress__width = (fullProgress/ videoPlayer.duration) * numberCurrentTime;
-  currentProgress.style.width = `${(currentProgress__width *smallProgress)/fullProgress}px`;
   fullScreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
   
   if (document.exitFullscreen) {
@@ -160,12 +170,12 @@ function handleKeys(event) {
   setTimeout(setTotalTime, 100);
 }
 
+let fullFlag=false;
+
 function goFullScreen() {
+  fullFlag=true; // 전체 화면
   clearInterval(progressInterval);
   smallProgress=numberWidth__totalProgress;
-  let numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
-  let currentProgress__width = (smallProgress/ videoPlayer.duration) * numberCurrentTime;
-    currentProgress.style.width = `${(currentProgress__width * fullProgress)/smallProgress}px`;
 
   if (videoContainer.requestFullscreen) {
     videoContainer.requestFullscreen();
@@ -224,9 +234,36 @@ function handleposition(event){
    const divX= event.offsetX-seek.offsetLeft;
    const numberCurrentTime = divX/ (numberWidth__totalProgress / videoPlayer.duration);
     currentProgress.style.width = `${divX}px`;
-    videoPlayer.currentTime= numberCurrentTime ;
+    videoPlayer.currentTime= numberCurrentTime;
+    // console.log(videoPlayer.buffered.end(0));
+
     currentTime.innerHTML = formatDate(videoPlayer.currentTime)[1];
 }
+
+function onprogress(){
+
+  let ranges = [];
+
+  for(let i = 0; i < videoPlayer.buffered.length; i++)
+  {
+       ranges.push([
+          videoPlayer.buffered.start(i),
+          videoPlayer.buffered.end(i)
+          ]); 
+  }
+  let loadProgress__width;
+  for(let i = 0; i < ranges.length; i++)
+      if(parseInt(ranges[i][0],10)<= formatDate(videoPlayer.currentTime)[0] && parseInt(ranges[i][1],10)>=formatDate(videoPlayer.currentTime)[0]){
+        if(fullFlag){
+           loadProgress__width = (((smallProgress / formatDate(videoPlayer.duration)[0]) * parseInt(videoPlayer.buffered.end(i),10)) * numberWidth__totalProgress)/smallProgress;
+        }else if(!fullFlag && !initFlag){
+          loadProgress__width = (((fullProgress / formatDate(videoPlayer.duration)[0]) * parseInt(videoPlayer.buffered.end(i),10)) * numberWidth__totalProgress)/fullProgress;
+        }else if(!fullFlag && initFlag){
+          loadProgress__width = (numberWidth__totalProgress/formatDate(videoPlayer.duration)[0]) * parseInt(videoPlayer.buffered.end(i),10);
+        }
+        loadProgress.style.width=`${loadProgress__width}px`;
+      }
+  }
 
 function init() {
   videoPlayer.volume = 0.5;
@@ -247,16 +284,16 @@ function init() {
     seek.addEventListener("click",handleposition);
     videoPlayer.addEventListener("mouseover", setTotalTime);
     videoPlayer.addEventListener("progress", setTotalTime);
+    videoPlayer.addEventListener('progress', onprogress, false);
     videoPlayer.addEventListener("loadedmetadata", setTotalTime());
 
     videoPlayer.addEventListener("waiting", () => {
-      console.log("Wait");
       spinner.removeAttribute("hidden");
     });
     videoPlayer.addEventListener("canplay", () => {
-      console.log("Start");
       spinner.setAttribute("hidden", "");
     });
+
   }
   
   if (videoContainer) {
