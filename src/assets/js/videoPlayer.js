@@ -252,6 +252,7 @@ function onprogress(){
           ]); 
   }
   let loadProgress__width;
+  
   for(let i = 0; i < ranges.length; i++)
       if(parseInt(ranges[i][0],10)<= formatDate(videoPlayer.currentTime)[0] && parseInt(ranges[i][1],10)>=formatDate(videoPlayer.currentTime)[0]){
         if(fullFlag){
