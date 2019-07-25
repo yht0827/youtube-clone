@@ -12,17 +12,15 @@ header.header
                 if !loggedUser
                     li
                         a(href=routes.join) 
-                                div Join
+                                i.fas.fa-sign-in-alt
                     li
-                        a(href=routes.login)
-                                div Log In
+                        button
+                            a(href=routes.login) Sign In
                 else 
-                    li
-                        a(href=`/videos${routes.upload}`)
-                             i.material-icons video_call
-                    li
-                        a(href=routes.logout)
-                             i.fas.fa-sign-out-alt
-                    li
-                        a(href=routes.me)
+                    div.dropdown
+                        a.btn.btn-secondary.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")#dropdownMenuLink
                             img.u-avatar(src=`${loggedUser.avatarUrl}` style="height: 36px")
+                        div.dropdown-menu(aria-labelledby="dropdownMenuLink")
+                            a.dropdown-item(href="#") Action
+                            a.dropdown-item(href="#") Action
+                            a.dropdown-item(href="#") Action
