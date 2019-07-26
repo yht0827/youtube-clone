@@ -1,105 +1,80 @@
 // Global
-const HOME = "/";
-const JOIN = "/join";
-const LOGIN = "/login";
-const LOGOUT = "/logout";
-const SEARCH = "/search";
+const HOME = '/';
+const SEARCH = '/search';
+
+const LOGIN = '/login';
+const LOGOUT = '/logout';
+const JOIN = '/join';
 
 // Users
-const USERS = "/users";
-const USER_DETAIL = "/:id";
-const EDIT_PROFILE = "/edit-profile";
-const CHANGE_PASSWORD = "/change-password";
-const ME = "/me";
+const UPLOAD = '/upload';
+const USER_DETAIL = '/profile/:userId';
+const EDIT_PROFILE = '/edit-profile';
+const CHANGE_PASSWORD = '/change-password';
+const ME = '/me';
 
 // Videos
-const VIDEOS = "/videos";
-const UPLOAD = "/upload";
-const VIDEO_DETAIL = "/:id";
-const EDIT_VIDEO = "/:id/edit";
-const DELETE_VIDEO = "/:id/delete";
+const VIDEO_DETAIL = '/videoDetail';
+const EDIT_VIDEO = '/edit';
+const DELETE_VIDEO = '/delete';
 
 // Github
-const GITHUB = "/auth/github";
-const GITHUB_CALLBACK = "/auth/github/callback";
+const GITHUB = '/auth/github';
+const GITHUB_CALLBACK = '/auth/github/callback';
 
 // Facebook
 
-const FB="/auth/facebook";
-const FB_CALLBACK = "/auth/facebook/callback";
+const FB = '/auth/facebook';
+const FB_CALLBACK = '/auth/facebook/callback';
 
 // Naver
 
-const NAVER="/auth/naver";
-const NAVER_CALLBACK="/auth/naver/callback";
+const NAVER = '/auth/naver';
+const NAVER_CALLBACK = '/auth/naver/callback';
 
 // Kakao
 
-const KAKAO="/auth/kakao";
-const KAKAO_CALLBACK="/auth/kakao/callback";
+const KAKAO = '/auth/kakao';
+const KAKAO_CALLBACK = '/auth/kakao/callback';
 
 // Google
 
-const GOOGLE="/auth/google";
-const GOOGLE_CALLBACK="/auth/google/callback";
+const GOOGLE = '/auth/google';
+const GOOGLE_CALLBACK = '/auth/google/callback';
 
 // API
 
-const API = "/api";
-const REGISTER_VIEW = "/:id/view";
-const ADD_COMMENT= "/:id/comment";
-const DELETE_COMMENT="/:id/delete";
+const REGISTER_VIEW = '/view/:videoId';
+const ADD_COMMENT = '/comment/add';
+const DELETE_COMMENT = '/comment/delete';
 
 const routes = {
   home: HOME,
   join: JOIN,
+  upload: UPLOAD,
   login: LOGIN,
   logout: LOGOUT,
   search: SEARCH,
-  users: USERS,
-  userDetail: id => {
-    if (id) {
-      return `/users/${id}`;
-    }
-      return USER_DETAIL;
-  },
+  userDetail: USER_DETAIL,
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
-  videos: VIDEOS,
-  upload: UPLOAD,
-  videoDetail: id => {
-    if (id) {
-      return `/videos/${id}`;
-    } 
-      return VIDEO_DETAIL;
-  },
-  editVideo: (id) => {
-    if (id) {
-      return `/videos/${id}/edit`;
-    }
-      return EDIT_VIDEO;
-  },
-  deleteVideo: (id) => {
-    if (id) {
-      return `/videos/${id}/delete`;
-    } 
-    return DELETE_VIDEO; 
-  },
-  gitHub:GITHUB,
-  githubCallback:GITHUB_CALLBACK,
-  me:ME,
-  facebook:FB,
-  facebookCallback:FB_CALLBACK,
-  naver:NAVER,
-  naverCallback:NAVER_CALLBACK,
-  kakao:KAKAO,
-  kakaoCallback:KAKAO_CALLBACK,
-  google:GOOGLE,
-  googleCallback:GOOGLE_CALLBACK,
-  api:API,
-  registerView:REGISTER_VIEW,
-  addComment:ADD_COMMENT,
-  deleteComment:DELETE_COMMENT
+  videoDetail: VIDEO_DETAIL,
+  editVideo: EDIT_VIDEO,
+  deleteVideo: DELETE_VIDEO,
+  gitHub: GITHUB,
+  githubCallback: GITHUB_CALLBACK,
+  me: ME,
+  facebook: FB,
+  facebookCallback: FB_CALLBACK,
+  naver: NAVER,
+  naverCallback: NAVER_CALLBACK,
+  kakao: KAKAO,
+  kakaoCallback: KAKAO_CALLBACK,
+  google: GOOGLE,
+  googleCallback: GOOGLE_CALLBACK,
+  registerView: REGISTER_VIEW,
+  addComment: ADD_COMMENT,
+  deleteComment: DELETE_COMMENT
 };
 
 export default routes;

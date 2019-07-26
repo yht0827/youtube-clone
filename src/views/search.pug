@@ -3,12 +3,13 @@ include mixins/videoBlock
 
 block content  
     .search_header 
-    .search__videos
     if videos.length === 0
       div.novideo
         img(src="http://fmda.in/images/found.gif")
-        each item in videos
-            +videoBlock({
+    else
+     .search__videos
+       each item in videos
+        +videoBlock({
                 title:item.title,
                 views:item.views,
                 videoFile:item.fileUrl,

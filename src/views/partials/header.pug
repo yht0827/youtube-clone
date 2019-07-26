@@ -21,6 +21,6 @@ header.header
                     a.btn.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")#dropdownMenuLink
                         img.u-avatar(src=`${loggedUser.avatarUrl}` style="height: 36px")
                     div.dropdown-menu(aria-labelledby="dropdownMenuLink")
-                        a.dropdown-item(href="#") Action
-                        a.dropdown-item(href="#") Action
-                        a.dropdown-item(href="#") Action
+                        a.dropdown-item(href=routes.me) Profile
+                        a.dropdown-item(href=routes.upload) Upload
+                        a.dropdown-item(href=routes.logout) Log Out

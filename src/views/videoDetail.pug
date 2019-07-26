@@ -9,7 +9,7 @@ block content
         })
         .video__info
             if loggedUser && video.creator.id === loggedUser.id
-                a(href=routes.editVideo(video.id))
+                a(href=`${routes.editVideo}/${video.id}`)
                     button Edit video
             h5.video__title=video.title
             p.video__description=video.description
@@ -19,7 +19,7 @@ block content
                 span.video__views #{video.views} views
             .video__author
                 |Uploaded by 
-                a(href=routes.userDetail(video.creator.id))=video.creator.name
+                a(href=`/profile/${video.creator.id}`)=video.creator.name
         .video__comments
                 if video.comments.length == 1
                     span.video__comment-number
