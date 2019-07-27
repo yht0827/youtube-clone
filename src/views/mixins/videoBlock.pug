@@ -1,8 +1,7 @@
 mixin videoBlock(video = {})
     .videoBlock
         a(href=`${routes.videoDetail}/${video.id}`)
-            div.video__Block
-             video.videoBlock__thumbnail(src=video.videoFile, controls=false, muted="muted")
+            video.videoBlock__thumbnail(src=video.videoFile, controls=false, muted="muted")
             div.video_info
                 h4.videoBlock__title=video.title
                 h4.videoBlock__creator=video.creator.name

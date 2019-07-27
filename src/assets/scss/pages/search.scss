@@ -1,56 +1,7 @@
 .search__videos {
-
-  .videoBlock {
-    width: 1000px;
-    height: 200px;
-    overflow: hidden;
-    position: relative;
-
-    .video__Block {
-
-      float: left;
-
-      .videoBlock__thumbnail {
-        margin-bottom: 10px;
-        max-width: 30%;
-      }
-    }
-
-    .video_info {
-
-      position: absolute;
-      right: 0px;
-      width: 600px;
-      height: 200px;
-
-      .videoBlock__creator {
-        margin-bottom: 5px;
-        font-size: 12px;
-      }
-
-      .videoBlock__title {
-        font-size: 25px;
-        font-weight: 500;
-        margin-bottom: 10px;
-      }
-
-      .videoBlock__views {
-        display: inline-block;
-        float: left;
-        font-size: 12px;
-      }
-
-      .videoBlock__date {
-        font-size: 12px;
-      }
-
-      .videoBlock__description {
-        margin-top: 15px;
-
-      }
-    }
-  }
-
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 26px;
 }
 
 .novideo {
