@@ -1,11 +1,34 @@
 .videoBlock {
-    video {
-      margin-bottom: 10px;
-      max-width: 100%;
-    }
-    .videoBlock__title {
-      font-size: 18px;
-      font-weight: 300;
-      margin-bottom: 10px;
-    }
+
+  width: 250px;
+  height: 215px;
+  overflow: hidden;
+  position: relative;
+
+  video {
+    margin-bottom: 10px;
+    max-width: 100%;
   }
+
+  .videoBlock__creator {
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+
+  .videoBlock__title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .videoBlock__views {
+    display: inline-block;
+    float: left;
+    font-size: 12px;
+  }
+
+  .videoBlock__date {
+    font-size: 12px;
+  }
+
+}

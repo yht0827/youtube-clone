@@ -1,6 +1,7 @@
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 import aws from 'aws-sdk';
+import moment from 'moment';
 import routes from './routes';
 
 const s3 = new aws.S3({
@@ -29,6 +30,7 @@ export const uploadVideo = multerVideo.single('videoFile');
 export const uploadAvatar = multerAvatar.single('avatar');
 
 export const localsMiddleware = (req, res, next) => {
+  res.locals.moment = moment;
   res.locals.siteName = 'YouTube';
   res.locals.routes = routes;
   res.locals.loggedUser = req.user || null;
@@ -46,6 +48,20 @@ export const onlyPublic = (req, res, next) => {
 
 export const onlyPrivate = (req, res, next) => {
   if (req.user) {
+    next();
+  } else {
+    res.redirect(routes.home);
+  }
+};
+
+export const localUserCheck = (req, res, next) => {
+  if (
+    req.user &&
+    !req.user.kakaoId &&
+    !req.user.googleId &&
+    !req.user.githubId &&
+    !req.user.facebookId
+  ) {
     next();
   } else {
     res.redirect(routes.home);

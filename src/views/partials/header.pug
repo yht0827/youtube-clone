@@ -9,18 +9,20 @@ header.header
                 input(type="text", placeholder="Search", name="term")
         .header__column
             if !loggedUser
-                ul
-                    li
-                        a(href=routes.join) 
-                                i.fas.fa-sign-in-alt
-                    li
-                        button
-                            a(href=routes.login) Sign In
+                div.dropdown
+                    a.btn.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")#dropdownMenuLink
+                         i.fas.fa-sign-in-alt
+                    div.dropdown-menu(aria-labelledby="dropdownMenuLink")
+                        a.dropdown-item(href=routes.join) 🏃 Sign Up
+                        a.dropdown-item(href=routes.login) 🔔 Sign In
             else 
                 div.dropdown
                     a.btn.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")#dropdownMenuLink
                         img.u-avatar(src=`${loggedUser.avatarUrl}` style="height: 36px")
                     div.dropdown-menu(aria-labelledby="dropdownMenuLink")
-                        a.dropdown-item(href=routes.me) Profile
-                        a.dropdown-item(href=routes.upload) Upload
-                        a.dropdown-item(href=routes.logout) Log Out
+                        a.dropdown-item(href=routes.me) 🧑 Your Channel
+                        a.dropdown-item(href=routes.editProfile) ️✏️ Edit Profile
+                        if loggedUser && !loggedUser.kakaoId && ! loggedUser.googleId && ! loggedUser.githubId && !loggedUser.facebookId
+                         a.dropdown-item(href=routes.changePassword) 🔒 Change Password 
+                        a.dropdown-item(href=routes.upload) 🎞️ Upload
+                        a.dropdown-item(href=routes.logout) 🧤 Log Out

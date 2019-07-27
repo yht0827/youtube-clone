@@ -11,16 +11,19 @@ block content
             if loggedUser && video.creator.id === loggedUser.id
                 a(href=`${routes.editVideo}/${video.id}`)
                     button Edit video
-            h5.video__title=video.title
-            p.video__description=video.description
-            if video.views === 1
-                span.video__views 1 view
-            else 
-                span.video__views #{video.views} views
+            .video__primary
+                h5.video__title=video.title
+                if video.views === 1
+                    span.video__views 1 view
+                else 
+                    span.video__views #{video.views} views
             .video__author
-                |Uploaded by 
-                a(href=`/profile/${video.creator.id}`)=video.creator.name
-        .video__comments
+                a(href=`/profile/${video.creator.id}`)
+                    img.u-avatar(src=video.creator.avatarUrl)
+                    span.Cname=video.creator.name
+                    span.Cdate Published on #{moment(video.createdAt).format("MMM D,YYYY")}
+                p.video__description=video.description
+            .video__comments
                 if video.comments.length == 1
                     span.video__comment-number
                         span#jsCommentNumber 1

@@ -13,6 +13,10 @@ const currentProgress = document.querySelector('#jsCurrentProgress');
 const loadProgress = document.querySelector('#jsLoadProgress');
 const seek = document.querySelector('#jsSeek');
 const spinner = document.getElementById('spinner');
+const homeVideos = document.querySelector('.home-videos');
+const searchVideos = document.querySelector('.search__videos');
+const userVideos = document.querySelector('.user-videos');
+const videoBlock = document.getElementsByClassName('videoBlock__thumbnail');
 
 const registerView = () => {
   const videoId = window.location.href.split('/videoDetail/')[1];
@@ -21,13 +25,10 @@ const registerView = () => {
   });
 };
 
-let stringWidth__totalProgress = window.getComputedStyle(totalProgress).getPropertyValue('width');
-let numberWidth__totalProgress = parseFloat(
-  Math.floor(stringWidth__totalProgress.split('p')[0], 10)
-);
+let stringWidth__totalProgress;
+let numberWidth__totalProgress;
 let totalTimeString;
 let progressInterval;
-
 let smallProgress;
 let fullProgress;
 
@@ -71,6 +72,36 @@ function getCurrentTime(oneSecWidth) {
     currentProgress.style.width = `${currentProgress__width}px`;
   }
 
+  let ranges = [];
+  for (let i = 0; i < videoPlayer.buffered.length; i++) {
+    ranges.push([videoPlayer.buffered.start(i), videoPlayer.buffered.end(i)]);
+  }
+
+  let loadProgress__width;
+  for (let i = 0; i < ranges.length; i++)
+    if (
+      parseInt(ranges[i][0], 10) <= formatDate(videoPlayer.currentTime)[0] &&
+      parseInt(ranges[i][1], 10) >= formatDate(videoPlayer.currentTime)[0]
+    ) {
+      if (fullFlag) {
+        loadProgress__width =
+          ((smallProgress / formatDate(videoPlayer.duration)[0]) *
+            parseInt(videoPlayer.buffered.end(i), 10) *
+            numberWidth__totalProgress) /
+          smallProgress;
+      } else if (!fullFlag && !initFlag) {
+        loadProgress__width =
+          ((fullProgress / formatDate(videoPlayer.duration)[0]) *
+            parseInt(videoPlayer.buffered.end(i), 10) *
+            numberWidth__totalProgress) /
+          fullProgress;
+      } else if (!fullFlag && initFlag) {
+        loadProgress__width =
+          (numberWidth__totalProgress / formatDate(videoPlayer.duration)[0]) *
+          parseInt(videoPlayer.buffered.end(i), 10);
+      }
+      loadProgress.style.width = `${loadProgress__width}px`;
+    }
   currentTime.innerHTML = formatDate(videoPlayer.currentTime)[1];
 }
 
@@ -234,40 +265,6 @@ function handleposition(event) {
   currentTime.innerHTML = formatDate(videoPlayer.currentTime)[1];
 }
 
-function onprogress() {
-  let ranges = [];
-
-  for (let i = 0; i < videoPlayer.buffered.length; i++) {
-    ranges.push([videoPlayer.buffered.start(i), videoPlayer.buffered.end(i)]);
-  }
-  let loadProgress__width;
-
-  for (let i = 0; i < ranges.length; i++)
-    if (
-      parseInt(ranges[i][0], 10) <= formatDate(videoPlayer.currentTime)[0] &&
-      parseInt(ranges[i][1], 10) >= formatDate(videoPlayer.currentTime)[0]
-    ) {
-      if (fullFlag) {
-        loadProgress__width =
-          ((smallProgress / formatDate(videoPlayer.duration)[0]) *
-            parseInt(videoPlayer.buffered.end(i), 10) *
-            numberWidth__totalProgress) /
-          smallProgress;
-      } else if (!fullFlag && !initFlag) {
-        loadProgress__width =
-          ((fullProgress / formatDate(videoPlayer.duration)[0]) *
-            parseInt(videoPlayer.buffered.end(i), 10) *
-            numberWidth__totalProgress) /
-          fullProgress;
-      } else if (!fullFlag && initFlag) {
-        loadProgress__width =
-          (numberWidth__totalProgress / formatDate(videoPlayer.duration)[0]) *
-          parseInt(videoPlayer.buffered.end(i), 10);
-      }
-      loadProgress.style.width = `${loadProgress__width}px`;
-    }
-}
-
 function init() {
   videoPlayer.volume = 0.5;
   document.addEventListener('keydown', handleKeys);
@@ -287,7 +284,6 @@ function init() {
   seek.addEventListener('click', handleposition);
   videoPlayer.addEventListener('mouseover', setTotalTime);
   videoPlayer.addEventListener('progress', setTotalTime);
-  videoPlayer.addEventListener('progress', onprogress, false);
   videoPlayer.addEventListener('loadedmetadata', setTotalTime());
 
   videoPlayer.addEventListener('waiting', () => {
@@ -299,5 +295,26 @@ function init() {
 }
 
 if (videoContainer) {
+  stringWidth__totalProgress = window.getComputedStyle(totalProgress).getPropertyValue('width');
+  numberWidth__totalProgress = parseFloat(Math.floor(stringWidth__totalProgress.split('p')[0], 10));
   init();
+}
+
+function showPreview() {
+  this.play();
+}
+
+function hidePreview() {
+  this.pause();
+}
+
+function homeEvent() {
+  Array.from(videoBlock).forEach(videoElement => {
+    videoElement.addEventListener('mouseover', showPreview);
+    videoElement.addEventListener('mouseout', hidePreview);
+  });
+}
+
+if (homeVideos || searchVideos || userVideos) {
+  homeEvent();
 }

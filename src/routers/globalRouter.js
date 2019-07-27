@@ -4,7 +4,7 @@ import routes from '../routes';
 import Video from '../models/Video';
 import * as userController from '../controllers/userController';
 import * as videoController from '../controllers/videoController';
-import { onlyPublic, onlyPrivate, uploadVideo, uploadAvatar } from '../middlewares';
+import { onlyPublic, onlyPrivate, uploadVideo, uploadAvatar, localUserCheck } from '../middlewares';
 
 const router = express.Router();
 
@@ -12,9 +12,11 @@ const router = express.Router();
 
 router.get(routes.home, async (req, res) => {
   try {
-    const videos = await Video.find({}).sort({
-      _id: -1
-    });
+    const videos = await Video.find({})
+      .sort({
+        _id: -1
+      })
+      .populate('creator');
     res.render('home', {
       pageTitle: 'Home',
       videos
@@ -107,11 +109,10 @@ router.get(routes.search, async (req, res) => {
         $regex: searchingBy,
         $options: 'i'
       }
-    });
+    }).populate('creator');
   } catch (error) {
     console.log(error);
   }
-
   if (videos.length === 0) {
     req.flash('error', "Can't Find Videos");
   }
@@ -136,7 +137,7 @@ router.post(routes.editProfile, onlyPrivate, uploadAvatar, userController.postEd
 
 // password
 
-router.get(routes.changePassword, onlyPrivate, userController.getChangePassword);
+router.get(routes.changePassword, onlyPrivate, localUserCheck, userController.getChangePassword);
 router.post(routes.changePassword, onlyPrivate, userController.postChangePassword);
 
 // videoDetail

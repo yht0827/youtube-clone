@@ -1,61 +1,159 @@
 .video-detail__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .video__info {
-      width: 100%;
-      max-width: 750px;
-      margin-top: 25px;
-      button {
-        width: 100px;
-        margin-bottom: 25px;
-      }
-      .video__author{
-        a{
-          color:#3498db;
-        }
-      }
-      .video__title,
-      .video__views,
-      .video__description {
-        display: block;
-        margin-bottom: 15px;
-      }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .video__info {
+    width: 100%;
+    max-width: 750px;
+    margin-top: 25px;
+
+    .video__primary {
+      border-bottom: 1.5px solid #e7e7e7;
+      margin-bottom: 10px;
+      position: relative;
+      padding-top: 10px;
+      padding-left: 15px;
+      height: 95px;
+      display: flex;
+
+
       .video__title {
         font-size: 22px;
         font-weight: 300;
+        display: block;
+        margin-bottom: 15px;
       }
+
       .video__views {
-        font-size: 14px;
-      }
-      .video__description {
-        font-size: 16px;
-      }
-    }
-    .video__comments {
-      margin-top: 25px;
-      text-align: center;
-      .video__comment-number {
         font-size: 18px;
+        position: absolute;
+        left: 15px;
+        bottom: 8px;
+        margin-bottom: 15px;
       }
-      .add__comment{
-        margin-top:25px;
+
+    }
+
+    button {
+      width: 100px;
+      margin-bottom: 25px;
+    }
+
+    .video__author {
+
+      width: 100%;
+      height: 200px;
+      border-bottom: 1.5px solid #e7e7e7;
+      padding-top: 10px;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      flex-direction: column;
+      -webkit-box-align: start;
+      -webkit-align-items: flex-start;
+      align-items: flex-start;
+      -webkit-box-pack: start;
+      justify-content: flex-start;
+      color: #444444;
+      font-weight: 400;
+
+      a {
         width: 100%;
-        input{
-          width: 100%;
+        height: 40px;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        -webkit-box-align: start;
+        align-items: flex-start;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        padding: 20px;
+        padding-left: 80px;
+        position: relative;
+
+        img {
+          position: absolute;
+          width: 45px;
+          height: 45px;
+          left: 12px;
+          top: 15px;
+          animation: spin 1.5s linear infinite;
         }
+
+        .Cname {
+          font-size: 20px;
+          font-weight: 500;
+          padding-bottom: 7px;
+        }
+
+        .Cdate {
+          font-size: 14px;
+          font-weight: 400;
+          color: #928f8f;
+        }
+
       }
-      .video__comments-list{
-        margin-top: 50px;
-          li{
-            display: -webkit-box;
-            -webkit-box-pack: justify;
-            -webkit-justify-content: space-between;
-            justify-content: space-between;
-            -webkit-box-align: baseline;
-            -webkit-align-items: baseline;
-            align-items: baseline;
-      }
+
+      .video__description {
+        font-size: 18px;
+        font-weight: 400;
+        padding-top: 10px;
+        padding-left: 80px;
+        width: 100%;
+        height: 100px;
+        margin-top: 15px;
       }
     }
+
+
+
+
+
+    .video__description {
+      font-size: 16px;
+    }
+  }
+
+  .video__comments {
+    margin-top: 25px;
+    text-align: center;
+
+    .video__comment-number {
+      font-size: 18px;
+    }
+
+    .add__comment {
+      margin-top: 25px;
+      width: 100%;
+
+      input {
+        width: 100%;
+      }
+    }
+
+    .video__comments-list {
+      margin-top: 50px;
+
+      li {
+        display: -webkit-box;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        -webkit-box-align: baseline;
+        -webkit-align-items: baseline;
+        align-items: baseline;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: none;
+  }
+
+  to {
+    transform: rotateY(1turn);
+  }
 }
