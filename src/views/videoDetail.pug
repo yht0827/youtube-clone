@@ -24,18 +24,19 @@ block content
                     span.Cdate Published on #{moment(video.createdAt).format("MMM D,YYYY")}
                 p.video__description=video.description
             .video__comments
+                if loggedUser
+                    img.input-avatar(src=loggedUser.avatarUrl)
                 if video.comments.length == 1
                     span.video__comment-number
-                        span#jsCommentNumber 1
-                        |  comment
+                        span#jsCommentNumber 1&nbsp;
+                        | comment
                 else
                     span.video__comment-number
-                        span#jsCommentNumber #{video.comments.length}
-                        |  comments             
+                        span#jsCommentNumber #{video.comments.length}&nbsp;
+                        | comments             
                 if loggedUser
                     form.add__comment#jsAddComment
-                        input(type="text", placeholder="  Add a comment...")
+                        input.commentInput(type="text" placeholder="  Add a public comment...")
                 ul.video__comments-list#jsCommentList
                     each comment in video.comments.reverse()
-                     li(id=comment.id)
-                      +commentBlock(comment)
+                        +commentBlock(comment)

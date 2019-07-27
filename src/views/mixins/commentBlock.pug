@@ -1,5 +1,35 @@
 mixin commentBlock(comment)
-    .commentBlock
-        span=comment.text
-    if loggedUser && comment.creator == loggedUser.id
-     i.fas.fa-times
+    li.commentBlock(id=comment.id)
+        a(href=`/profile/${comment.creator}`)
+            img.commentCreator(src=comment.creatorAvatarUrl)
+            span.commentCreatorName=comment.creatorName
+            if moment().diff(comment.createdAt,'days') >= 365
+                if moment().diff(comment.createdAt,'years') === 1
+                    span.commentdate #{moment().diff(comment.createdAt,'years')} year ago  
+                else
+                    span.commentdate #{moment().diff(comment.createdAt,'years')} years ago   
+            else if moment().diff(comment.createdAt,'days') >= 31
+                if moment().diff(comment.createdAt,'months') === 1
+                    span.commentdate #{moment().diff(comment.createdAt,'months')} month ago
+                else
+                    span.commentdate #{moment().diff(comment.createdAt,'months')} months ago   
+            else if moment().diff(comment.createdAt,'hours') >= 24
+                if moment().diff(comment.createdAt,'days') === 1
+                    span.commentdate #{moment().diff(comment.createdAt,'days')} day ago 
+                else
+                    span.commentdate #{moment().diff(comment.createdAt,'days')} days ago 
+            else if moment().diff(comment.createdAt,'hours')>=1
+                if moment().diff(comment.createdAt,'hours') ===1
+                    span.commentdate #{moment().diff(comment.createdAt,'hours')} hour ago
+                else
+                    span.commentdate #{moment().diff(comment.createdAt,'hours')} hours ago        
+            else if moment().diff(comment.createdAt,'seconds') >=60
+                if  moment().diff(comment.createdAt,'minutes') === 1
+                    span.commentdate #{moment().diff(comment.createdAt,'minutes')} minute ago
+                else
+                    span.commentdate #{moment().diff(comment.createdAt,'minutes')} minutes ago
+            else 
+                span.commentdate #{moment().diff(comment.createdAt,'seconds')} seconds ago
+        span.commentData=comment.text
+        if loggedUser && comment.creator == loggedUser.id
+            i.fas.fa-times

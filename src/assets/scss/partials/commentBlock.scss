@@ -1,16 +1,58 @@
-.commentBlock{
-text-align: left;
-margin-right: 10px;
-margin-bottom: 12px;
-width: 300px;
-background-color: #3498db;
-color: white;
-padding: 15px;
--webkit-border-radius: 20px;
-border-radius: 20px;
--webkit-border-bottom-left-radius: 0px;
-border-bottom-left-radius: 0px;
-i {
-cursor: pointer;
+.commentBlock {
+    color: black;
+    display: flex;
+    position: relative;
+    width: 95% !important;
+    height: 40px;
+    font-size: 16px;
+    padding: 15px;
+    margin-left: 30px;
+    margin-bottom: 40px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding-left: 80px;
+
+
+    i {
+        position: absolute;
+        cursor: pointer;
+        margin-left: 650px;
     }
+
+    .commentCreator {
+        position: absolute;
+        z-index: 2;
+        width: 40px;
+        height: 40px;
+        border-radius: 30px;
+        left: -15px;
+    }
+
+    .commentCreatorName {
+        position: absolute;
+        font-size: 12px;
+        margin-bottom: 20px;
+        font-weight: 400;
+        padding-bottom: 3px;
+    }
+
+    .commentdate {
+        position: absolute;
+        margin-bottom: 20px;
+        font-size: 12px;
+        margin-left: 30px;
+    }
+
+    .commentData {
+        width: 640px;
+        text-align: left;
+        font-size: 18px;
+        margin-top: 30px;
+    }
+
 }

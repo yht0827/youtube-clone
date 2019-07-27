@@ -17,7 +17,6 @@
       height: 95px;
       display: flex;
 
-
       .video__title {
         font-size: 22px;
         font-weight: 300;
@@ -106,44 +105,68 @@
       }
     }
 
-
-
-
-
-    .video__description {
-      font-size: 16px;
-    }
-  }
-
-  .video__comments {
-    margin-top: 25px;
-    text-align: center;
-
-    .video__comment-number {
-      font-size: 18px;
-    }
-
-    .add__comment {
+    .video__comments {
       margin-top: 25px;
+      text-align: center;
       width: 100%;
+      max-width: 100% !important;
+      padding: 10px;
+      height: 100%;
+      position: relative;
 
-      input {
+      .input-avatar {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 25px;
+        top: 50px;
+        left: 25px;
+      }
+
+      .video__comment-number {
+        font-size: 18px;
+        display: flex;
+        margin-left: 10px;
+      }
+
+      .add__comment {
+        margin-top: 25px;
+        padding-left: 70px;
         width: 100%;
+        position: relative;
+
+        .commentInput {
+          width: 100% !important;
+          max-width: 91.5% !important;
+          position: absolute;
+          margin-left: 30px;
+          background: none;
+          color: #c6c6c6;
+          font-size: 16px;
+          padding: 10px;
+          display: block;
+          border: none;
+          border-radius: 0;
+          border-bottom: 1px solid #c6c6c6;
+          box-shadow: none;
+          -webkit-box-shadow: none;
+        }
       }
     }
 
     .video__comments-list {
-      margin-top: 50px;
-
-      li {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        -webkit-justify-content: space-between;
-        justify-content: space-between;
-        -webkit-box-align: baseline;
-        -webkit-align-items: baseline;
-        align-items: baseline;
-      }
+      margin-top: 100px;
+      width: 100%;
+      height: 100%;
+      justify-content: flex-start;
+      align-items: flex-start;
+      -webkit-box-pack: start;
+      flex-direction: column;
+      -webkit-box-align: start;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-align-items: flex-start;
+      justify-content: flex-start;
     }
   }
 }

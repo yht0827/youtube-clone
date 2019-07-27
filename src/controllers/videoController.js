@@ -37,7 +37,8 @@ export const videoDetail = async (req, res) => {
   try {
     const video = await Video.findById(id)
       .populate('creator')
-      .populate('comments'); // populate는 객체만 가져올수 있다. join과 같은 개념
+      .populate('comments');
+    // populate는 객체만 가져올수 있다. join과 같은 개념
 
     res.render('videoDetail', {
       pageTitle: video.title,
@@ -162,11 +163,18 @@ export const postAddComment = async (req, res) => {
     const video = await Video.findById(videoId);
     const newComment = await Comment.create({
       text: comment,
-      creator: user.id
+      creator: user.id,
+      creatorAvatarUrl: user.avatarUrl,
+      creatorName: user.name
     });
+    console.log(user);
     video.comments.push(newComment.id);
     await video.save();
-    res.send({ commentId: newComment.id });
+    res.send({
+      commentId: newComment.id,
+      creatorAvatarUrl: user.avatarUrl,
+      creatorName: user.name
+    });
   } catch (error) {
     res.status(400);
     res.end();
