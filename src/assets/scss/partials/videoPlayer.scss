@@ -191,7 +191,8 @@
   width: 30px;
   height: 30px;
   border: 2px solid #f3f3f3;
-  border-top: 3px solid black;
+  border-top: 3px solid #0097e6;
+  border-bottom: 3px solid #0097e6;
   border-radius: 50%;
   will-change: transform;
   animation: spin 1s infinite linear

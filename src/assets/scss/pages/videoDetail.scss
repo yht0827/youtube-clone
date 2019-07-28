@@ -77,7 +77,7 @@
           height: 45px;
           left: 12px;
           top: 15px;
-          animation: spin 1.5s linear infinite;
+          animation: spin1 1.5s linear infinite;
         }
 
         .Cname {
@@ -170,7 +170,7 @@
   }
 }
 
-@keyframes spin {
+@keyframes spin1 {
   from {
     transform: none;
   }
