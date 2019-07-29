@@ -4,7 +4,7 @@ import User from '../models/User';
 
 export const getJoin = (req, res) => {
   res.render('join', {
-    pageTitle: 'Join'
+    pageTitle: 'Sign Up'
   });
 };
 
@@ -16,7 +16,7 @@ export const postJoin = async (req, res, next) => {
     req.flash('error', "Password don't match");
     res.status(400);
     res.render('join', {
-      pageTitle: 'Join'
+      pageTitle: 'Sign Up'
     });
   } else {
     try {
@@ -30,7 +30,7 @@ export const postJoin = async (req, res, next) => {
       req.flash('error', 'A user already registered');
       res.status(400);
       res.render('join', {
-        pageTitle: 'Join'
+        pageTitle: 'Sign Up'
       });
     }
   }
@@ -38,7 +38,7 @@ export const postJoin = async (req, res, next) => {
 
 export const getLogin = (req, res) =>
   res.render('login', {
-    pageTitle: 'Log In'
+    pageTitle: 'Sign In'
   });
 export const postLogin = passport.authenticate('local', {
   // local로그인
@@ -179,7 +179,7 @@ export const logout = (req, res) => {
 
 export const getMe = async (req, res) => {
   const user = await User.findById(req.user.id).populate('videos');
-  res.render('userDetail', { pageTitle: 'userDetail', user });
+  res.render('userDetail', { pageTitle: 'My Channel', user });
 };
 export const userDetail = async (req, res) => {
   const {
@@ -188,7 +188,7 @@ export const userDetail = async (req, res) => {
   try {
     const user = await User.findById(userId).populate('videos');
     res.render('userDetail', {
-      pageTitle: 'User Detail',
+      pageTitle: `${user.name}'s Channel`,
       user
     });
   } catch (error) {
