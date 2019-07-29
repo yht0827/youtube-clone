@@ -16,7 +16,7 @@ const spinner = document.getElementById('spinner');
 const homeVideos = document.querySelector('.home-videos');
 const searchVideos = document.querySelector('.search__videos');
 const userVideos = document.querySelector('.user-videos');
-const videoBlock = document.getElementsByClassName('videoBlock__thumbnail');
+const videoBlock = document.getElementsByClassName('videoBlock');
 
 const registerView = () => {
   const videoId = window.location.href.split('/videoDetail/')[1];
@@ -302,11 +302,11 @@ if (videoContainer) {
 }
 
 function showPreview() {
-  this.play();
+  this.firstChild.nextSibling.firstChild.play();
 }
 
 function hidePreview() {
-  this.pause();
+  this.firstChild.nextSibling.firstChild.pause();
 }
 
 function homeEvent() {
