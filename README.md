@@ -1,7 +1,6 @@
 <h1 align="center"> Youtube Clone </h1> <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellowgreen.svg)
 ![NodeJs](https://img.shields.io/badge/Node.js-V10.16.0-success.svg)
 ![Express](https://img.shields.io/badge/Express-4.16.4-brightgreen.svg)
 ![MongoDB atlas](https://img.shields.io/badge/MongoDB-atlas-ff69b4.svg)
