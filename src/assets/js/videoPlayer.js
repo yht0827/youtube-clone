@@ -28,8 +28,8 @@ const registerView = () => {
   });
 };
 
-let stringWidth__totalProgress;
-let numberWidth__totalProgress;
+let stringWidthTotalProgress;
+let numberWidthTotalProgress;
 let totalTimeString;
 let progressInterval;
 let smallProgress;
@@ -38,7 +38,7 @@ let initFlag = true;
 let fullFlag = false;
 
 const formatDate = seconds => {
-  let array = [];
+  const array = [];
   const secondsNumber = parseInt(seconds, 10);
   let hours = Math.floor(secondsNumber / 3600);
   let minutes = Math.floor((secondsNumber - hours * 3600) / 60);
@@ -58,60 +58,60 @@ const formatDate = seconds => {
 };
 
 function getProgressWidth() {
-  stringWidth__totalProgress = window.getComputedStyle(totalProgress).getPropertyValue('width');
-  numberWidth__totalProgress = parseFloat(stringWidth__totalProgress.split('p')[0], 10);
+  stringWidthTotalProgress = window.getComputedStyle(totalProgress).getPropertyValue('width');
+  numberWidthTotalProgress = parseFloat(stringWidthTotalProgress.split('p')[0], 10);
 }
 
 function getCurrentTime(oneSecWidth) {
-  let numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
+  const numberCurrentTime = formatDate(videoPlayer.currentTime)[0];
   if (fullFlag) {
-    let currentProgress__width = (smallProgress / videoPlayer.duration) * numberCurrentTime;
-    currentProgress.style.width = `${(currentProgress__width * numberWidth__totalProgress) /
+    const currentProgressWidth = (smallProgress / videoPlayer.duration) * numberCurrentTime;
+    currentProgress.style.width = `${(currentProgressWidth * numberWidthTotalProgress) /
       smallProgress}px`;
   } else if (!fullFlag && !initFlag) {
-    let currentProgress__width = (fullProgress / videoPlayer.duration) * numberCurrentTime;
-    currentProgress.style.width = `${(currentProgress__width * numberWidth__totalProgress) /
+    const currentProgressWidth = (fullProgress / videoPlayer.duration) * numberCurrentTime;
+    currentProgress.style.width = `${(currentProgressWidth * numberWidthTotalProgress) /
       fullProgress}px`;
   } else if (!fullFlag && initFlag) {
-    let currentProgress__width = oneSecWidth * numberCurrentTime;
-    currentProgress.style.width = `${currentProgress__width}px`;
+    const currentProgressWidth = oneSecWidth * numberCurrentTime;
+    currentProgress.style.width = `${currentProgressWidth}px`;
   }
 
-  let ranges = [];
+  const ranges = [];
   for (let i = 0; i < videoPlayer.buffered.length; i++) {
     ranges.push([videoPlayer.buffered.start(i), videoPlayer.buffered.end(i)]);
   }
 
-  let loadProgress__width;
+  let loadProgressWidth;
   for (let i = 0; i < ranges.length; i++)
     if (
       parseInt(ranges[i][0], 10) <= formatDate(videoPlayer.currentTime)[0] &&
       parseInt(ranges[i][1], 10) >= formatDate(videoPlayer.currentTime)[0]
     ) {
       if (fullFlag) {
-        loadProgress__width =
+        loadProgressWidth =
           ((smallProgress / formatDate(videoPlayer.duration)[0]) *
             parseInt(videoPlayer.buffered.end(i), 10) *
-            numberWidth__totalProgress) /
+            numberWidthTotalProgress) /
           smallProgress;
       } else if (!fullFlag && !initFlag) {
-        loadProgress__width =
+        loadProgressWidth =
           ((fullProgress / formatDate(videoPlayer.duration)[0]) *
             parseInt(videoPlayer.buffered.end(i), 10) *
-            numberWidth__totalProgress) /
+            numberWidthTotalProgress) /
           fullProgress;
       } else if (!fullFlag && initFlag) {
-        loadProgress__width =
-          (numberWidth__totalProgress / formatDate(videoPlayer.duration)[0]) *
+        loadProgressWidth =
+          (numberWidthTotalProgress / formatDate(videoPlayer.duration)[0]) *
           parseInt(videoPlayer.buffered.end(i), 10);
       }
-      loadProgress.style.width = `${loadProgress__width}px`;
+      loadProgress.style.width = `${loadProgressWidth}px`;
     }
   currentTime.innerHTML = formatDate(videoPlayer.currentTime)[1];
 }
 
 function setProgress(numberDuration) {
-  let oneSecWidth = numberWidth__totalProgress / numberDuration;
+  const oneSecWidth = numberWidthTotalProgress / numberDuration;
   progressInterval = setInterval(getCurrentTime, 0, oneSecWidth);
 }
 
@@ -239,7 +239,7 @@ function handleEnded() {
 function changeScreen() {
   if (!fullFlag) {
     clearInterval(progressInterval);
-    smallProgress = numberWidth__totalProgress;
+    smallProgress = numberWidthTotalProgress;
     fullScreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
     fullScreenBtn.removeEventListener('click', goFullScreen);
     fullScreenBtn.addEventListener('click', exitFullScreen);
@@ -248,7 +248,7 @@ function changeScreen() {
     setTimeout(setTotalTime, 100);
   } else {
     clearInterval(progressInterval);
-    fullProgress = numberWidth__totalProgress;
+    fullProgress = numberWidthTotalProgress;
     fullScreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
     fullScreenBtn.removeEventListener('click', exitFullScreen);
     fullScreenBtn.addEventListener('click', goFullScreen);
@@ -261,7 +261,7 @@ function changeScreen() {
 
 function handleposition(event) {
   const divX = event.offsetX - seek.offsetLeft;
-  const numberCurrentTime = divX / (numberWidth__totalProgress / videoPlayer.duration);
+  const numberCurrentTime = divX / (numberWidthTotalProgress / videoPlayer.duration);
   currentProgress.style.width = `${divX}px`;
   videoPlayer.currentTime = numberCurrentTime;
   currentTime.innerHTML = formatDate(videoPlayer.currentTime)[1];
@@ -299,8 +299,8 @@ function init() {
 }
 
 if (videoContainer) {
-  stringWidth__totalProgress = window.getComputedStyle(totalProgress).getPropertyValue('width');
-  numberWidth__totalProgress = parseFloat(Math.floor(stringWidth__totalProgress.split('p')[0], 10));
+  stringWidthTotalProgress = window.getComputedStyle(totalProgress).getPropertyValue('width');
+  numberWidthTotalProgress = parseFloat(Math.floor(stringWidthTotalProgress.split('p')[0], 10));
   init();
 }
 
