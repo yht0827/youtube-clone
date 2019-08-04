@@ -11,26 +11,25 @@
 ![Pug](https://img.shields.io/badge/Pug-2.0.3-e7e7e7.svg)
 ![SASS](https://img.shields.io/badge/SASS-4.12.0-3498db.svg)
 
-## Works : 
+## Works :
 
-- [X] Home
-- [X] Join
-- [X] Login
-- [X] Search
-- [X] User Detail
-- [X] Edit Profile
-- [X] Change Password
-- [X] Upload
-- [X] Video Detail
-- [X] Edit Video
-- [X] Passportjs
-- [X] Delete Video
-- [X] Delete Comments
-- [X] Make a Popup when click profile image (Bootstrap)
-- [X] avatar in Comments
-- [ ] videoplayer << , >> button
+- [x] Home
+- [x] Join
+- [x] Login
+- [x] Search
+- [x] User Detail
+- [x] Edit Profile
+- [x] Change Password
+- [x] Upload
+- [x] Video Detail
+- [x] Edit Video
+- [x] Passportjs
+- [x] Delete Video
+- [x] Delete Comments
+- [x] Make a Popup when click profile image (Bootstrap)
+- [x] avatar in Comments
 - [ ] Make a Back-end with Prisma
-- [ ] Deploy AWS EC2 or ElasticBeanstalk
 
 ## Link :
+
 https://vast-wave-24348.herokuapp.com

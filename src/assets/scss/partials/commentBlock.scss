@@ -21,7 +21,7 @@
     i {
         position: absolute;
         cursor: pointer;
-        margin-left: 650px;
+        margin-left: 860px;
     }
 
     .commentCreator {
@@ -34,25 +34,24 @@
     }
 
     .commentCreatorName {
-        position: absolute;
         font-size: 12px;
         margin-bottom: 20px;
-        font-weight: 400;
+        font-weight: 700;
         padding-bottom: 3px;
     }
 
     .commentdate {
-        position: absolute;
         margin-bottom: 20px;
         font-size: 12px;
-        margin-left: 50px;
+        margin-left: 10px;
     }
 
     .commentData {
         width: 640px;
         text-align: left;
         font-size: 18px;
-        margin-top: 30px;
+        margin-top: 10px;
+        font-weight: 100;
     }
 
 }

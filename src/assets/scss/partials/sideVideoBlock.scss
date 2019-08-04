@@ -1,0 +1,48 @@
+.smallBlock {
+
+    margin-bottom: 20px;
+
+
+    .videoBlock__smallBackground {
+        width: 177px;
+        height: 100px;
+        position: absolute;
+        background-color: black;
+    }
+
+    a {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(178px, 1fr));
+        height: 100px;
+        place-items: center start;
+        grid-gap: 20px;
+
+
+        .videoBlock__thumbnail {
+
+            height: 100%;
+            width: 100%;
+            background-size: cover;
+            background-position: center center;
+            z-index: 3;
+        }
+
+        .video_info {
+            .videoBlock__title {
+                font-weight: 700;
+                margin-bottom: 15px;
+            }
+
+            .videoBlock__creator {
+                font-size: 12px;
+                color: rgba(0, 0, 0, 0.5);
+                display: block;
+            }
+
+            .videoBlock__views {
+                font-size: 12px;
+                color: rgba(0, 0, 0, 0.5);
+            }
+        }
+    }
+}

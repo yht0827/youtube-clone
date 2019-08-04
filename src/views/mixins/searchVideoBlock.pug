@@ -1,0 +1,41 @@
+mixin videoBlock(video = {})
+    .searchBlock
+        .searchBlock__background
+        a(href=`${routes.videoDetail}/${video.id}`)
+                video.searchBlock__thumbnail(src=video.videoFile, controls=false, muted="muted")
+                div.search_info
+                    h4.searchBlock__title=video.title
+                    h4.searchBlock__creator=video.creator.name
+                    if video.views === 1
+                        h6.searchBlock__views 1 view •&nbsp;
+                    else
+                        h6.searchBlock__views #{video.views} views •&nbsp;
+                    if moment().diff(video.createdAt,'days') >= 365
+                        if moment().diff(video.createdAt,'years') === 1
+                            h4.search__date #{moment().diff(video.createdAt,'years')} year ago  
+                        else
+                            h4.search__date #{moment().diff(video.createdAt,'years')} years ago   
+                    else if moment().diff(video.createdAt,'days') >= 31
+                        if moment().diff(video.createdAt,'months') === 1
+                            h4.search__date #{moment().diff(video.createdAt,'months')} month ago
+                        else
+                            h4.search__date #{moment().diff(video.createdAt,'months')} months ago   
+                    else if moment().diff(video.createdAt,'hours') >= 24
+                        if moment().diff(video.createdAt,'days') === 1
+                            h4.search__date #{moment().diff(video.createdAt,'days')} day ago 
+                        else
+                            h4.search__date #{moment().diff(video.createdAt,'days')} days ago 
+                    else if moment().diff(video.createdAt,'hours')>=1
+                        if moment().diff(video.createdAt,'hours') ===1
+                            h4.search__date #{moment().diff(video.createdAt,'hours')} hour ago
+                        else
+                            h4.search__date #{moment().diff(video.createdAt,'hours')} hours ago        
+                    else if moment().diff(video.createdAt,'seconds') >=60
+                        if  moment().diff(video.createdAt,'minutes') === 1
+                            h4.search__date #{moment().diff(video.createdAt,'minutes')} minute ago
+                        else
+                            h4.search__date #{moment().diff(video.createdAt,'minutes')} minutes ago
+                    else 
+                        h4.search__date #{moment().diff(video.createdAt,'seconds')} seconds ago
+                    if video.description
+                        h4.search__description #{video.description}

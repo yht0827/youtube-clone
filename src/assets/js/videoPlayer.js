@@ -16,7 +16,10 @@ const spinner = document.getElementById('spinner');
 const homeVideos = document.querySelector('.home-videos');
 const searchVideos = document.querySelector('.search__videos');
 const userVideos = document.querySelector('.user-videos');
+const videoRelated = document.querySelector('.video__related');
 const videoBlock = document.getElementsByClassName('videoBlock');
+const smallBlock = document.getElementsByClassName('smallBlock');
+const searchBlock = document.getElementsByClassName('searchBlock');
 
 const registerView = () => {
   const videoId = window.location.href.split('/videoDetail/')[1];
@@ -314,8 +317,18 @@ function homeEvent() {
     videoElement.addEventListener('mouseover', showPreview);
     videoElement.addEventListener('mouseout', hidePreview);
   });
+
+  Array.from(searchBlock).forEach(videoElement => {
+    videoElement.addEventListener('mouseover', showPreview);
+    videoElement.addEventListener('mouseout', hidePreview);
+  });
+
+  Array.from(smallBlock).forEach(videoElement => {
+    videoElement.addEventListener('mouseover', showPreview);
+    videoElement.addEventListener('mouseout', hidePreview);
+  });
 }
 
-if (homeVideos || searchVideos || userVideos) {
+if (homeVideos || searchVideos || userVideos || videoRelated) {
   homeEvent();
 }

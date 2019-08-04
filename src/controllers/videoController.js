@@ -38,11 +38,17 @@ export const videoDetail = async (req, res) => {
     const video = await Video.findById(id)
       .populate('creator')
       .populate('comments');
+    const videos = await Video.find({})
+      .sort({
+        _id: -1
+      })
+      .populate('creator');
     // populate는 객체만 가져올수 있다. join과 같은 개념
 
     res.render('videoDetail', {
       pageTitle: video.title,
-      video
+      video,
+      videos
     });
   } catch (error) {
     res.redirect(routes.home);
@@ -74,7 +80,6 @@ export const postEditVideo = async (req, res) => {
     params: { id },
     body: { title, description }
   } = req;
-
   try {
     await Video.findOneAndUpdate(
       {
@@ -86,7 +91,7 @@ export const postEditVideo = async (req, res) => {
       }
     );
     req.flash('success', 'Video updated');
-    res.redirect(routes.videoDetail(id));
+    res.redirect(`${routes.videoDetail}/${id}`);
   } catch (error) {
     req.flash('error', "Can't Update Video");
     res.redirect(routes.home);
