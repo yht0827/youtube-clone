@@ -1,7 +1,6 @@
 const path = require('path'); // 전체 경로를 사용하기위해
 const autoprefixer = require('autoprefixer');
 const ExtractCSS = require('extract-text-webpack-plugin');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 const MODE = process.env.WEBPACK_ENV;
 const ENTRY_FILE = path.resolve(__dirname, 'assets', 'js', 'main.js'); // assets/js/main.js파일을 의미
@@ -46,7 +45,7 @@ const config = {
     path: OUTPUT_DIR,
     filename: '[name].js'
   },
-  plugins: [new CaseSensitivePathsPlugin(), new ExtractCSS('styles.css')] // 실제 만들어질 css파일명
+  plugins: [new ExtractCSS('styles.css')] // 실제 만들어질 css파일명
 };
 
 module.exports = config;
